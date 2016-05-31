@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="/js/boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #logDL {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+            #logDL dt {
+                font-size: large;
+                font-weight: bold;
+                margin-bottom: 10px;
+                border-bottom: solid 1px #808080;
+                line-height: 2em;
+            }
+
+            #logDL dd {
+                margin: 10px 0;
+            }
+    </style>
+</head>
+<body>
+    <!--撑满页面-->
+    <div class="mini-fit">
+        <dl id="logDL">
+        </dl>
+    </div>
+
+    <script type="text/javascript">
+        mini.parse();//MiniUi初始化
+        function show(id) {
+
+            mini.open({//打开新页面
+                url: "/UpdateLog/show.html",//页面地址
+                title: "详细",//标题
+                width: "90%",//宽度
+                height: "80%",//高度
+                onload: function () {//加载
+                    var iframe = this.getIFrameEl();//获取新页面
+                    var data = { action: "edit", id: id };//传过去的值
+                    iframe.contentWindow.SetData(data);//调用新页面方法
+
+                },
+                ondestroy: function (action) {//页面操作完成
+
+                }
+            });
+        }
+        $(document).ready(function (e) {
+            $.ajax({
+                type: "GET",
+                url: "/ajax/UpdateLogAjax.ashx?method=GetListShow",
+                success: function (text) {
+                    var json = eval(text);
+                    $.each(json, function (i, v) {
+                        var html = "<dt>版本号:" + v.Version + "  更新时间:" + mini.formatDate(mini.parseDate(v.Time), "yyyy-MM-dd") + "</dt>"
+            						+ "<dd><pre>" + v.Description + "</pre><a href=\"javascript:show(" + v.UpdateLogId + ")\">查看详细</a></dd>";
+                        $("#logDL").append(html);
+                    });
+                },
+                error: function () {
+
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

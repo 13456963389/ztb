@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>招标文件列表</title>
+    <script src="/js/boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 100%;">
+        <div class="mini-toolbar" style="border-bottom: 0; padding: 0px;">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 100%;">
+                        <a class="mini-button" iconcls="icon-add" onclick="add()">增加</a>
+                        <a class="mini-button" iconcls="icon-edit" onclick="edit()">编辑</a>
+                        <a class="mini-button" iconcls="icon-remove" onclick="remove()">删除</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--撑满页面-->
+    <div class="mini-fit">
+        <div id="treegrid1" class="mini-treegrid" style="width: 100%; height: 100%;"
+             url="/ajax/SectionInfoAjax.ashx?method=GetList" idField="ProjectId" parentField="pid" showTreeIcon="true" showTreeLines="true"
+             treeColumn="ProjectCode" resultAsTree="false" expandOnLoad="0">
+            <div property="columns">
+                <div type="indexcolumn" width="20"></div>
+                <div name="SectionCode" field="TemplateId" headeralign="center">项目/标段编号</div>
+                <div field="SectionName" headeralign="center">项目/标段名称</div>
+                <div name="SectionId" field="NodeName" headeralign="center" renderer="onFileName">招标文件名称</div>
+                <div name="BookPrice" field="NodeName" headeralign="center">文件售价</div>
+                <div field="BookStarDate" headeralign="center" allowsort="false">下载开始日期</div>
+                <div field="BookEndDate" headeralign="center" allowsort="false">下载截止日期</div>
+                <div field="SectionId" headeralign="center" allowsort="false" renderer="onFileDown">下载</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        mini.parse();//MiniUi初始化
+
+        var grid = mini.get("treegrid1");//获取Id为datagrid1的DIV
+        grid.load();
+
+        //添加
+        function add() {
+            mini.open({//打开新页面
+                url: "/ProjectInfo/Zbht/detail.html",//页面地址
+                title: "新增",//标题
+                width: 600,//宽度
+                height: 360,//高度
+                onload: function () {//加载
+                    var iframe = this.getIFrameEl();//获取新页面
+                    var data = { action: "add", pid: 0, pname: 0 };//传过去的值
+                    iframe.contentWindow.SetData(data);//调用新页面方法
+                },
+                ondestroy: function (action) {//页面操作完成
+                    if (action != "cancel")//如果不是取消
+                        grid.reload();//重新加载
+                }
+            });
+        }
+
+        function edit() {
+            var row = grid.getSelected();//获取最新选中数据
+            if (row) {//判断是否为空
+                mini.open({//打开新页面
+                    url: "/ProjectInfo/Zbht/detail.html",//页面地址
+                    title: "编辑",//标题
+                    width: 600,//宽度
+                    height: 360,//高度
+                    onload: function () {//加载
+                        var iframe = this.getIFrameEl();//获取新页面
+                        var data = { action: "edit", id: row.NodeId };//传过去的值
+                        iframe.contentWindow.SetData(data);//调用新页面方法
+
+                    },
+                    ondestroy: function (action) {//页面操作完成
+                        if (action != "cancel")//如果不是取消
+                            grid.reload();//重新加载
+                    }
+                });
+
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+
+        //grid.on("rowdblclick", function (e) {
+        //    var row = grid.getRow(grid.indexOf(e.record));
+        //    if (row) {//判断是否为空
+        //        mini.open({//打开新页面
+        //            url: "/WorkFlowTemp/detail.html",//页面地址
+        //            title: "详细",//标题
+        //            width: 600,//宽度
+        //            height: 360,//高度
+        //            onload: function () {//加载
+        //                var iframe = this.getIFrameEl();//获取新页面
+        //                var data = { action: "detail", id: row.NodeId };//传过去的值
+        //                iframe.contentWindow.SetData(data);//调用新页面方法
+
+        //            },
+        //            ondestroy: function (action) {//页面操作完成
+        //                //grid.reload();//重新加载
+        //            }
+        //        });
+
+        //    } else {
+        //        mini.alert("请选中一条记录", "提示");
+        //    }
+        //});
+
+        function remove() {
+            var rows = grid.getSelecteds();//获取所有选中数据
+            if (rows.length > 0) {
+                mini.confirm("确定删除记录？", "确定？", function (action) {
+                    if (action == "ok") {
+                        var ids = [];
+                        for (var i = 0, l = rows.length; i < l; i++) {
+                            var r = rows[i];
+                            ids.push(r.NodeId);
+                        }
+                        var id = ids.join(',');//拼接Id字符串
+                        grid.loading("操作中，请稍后......"); //等待界面
+                        $.ajax({
+                            url: "/ajax/WorkFlowTempAjax.ashx?method=Remove&id=" + id,
+                            success: function (text) {
+                                grid.reload();//重新加载
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    }
+                }
+            );
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+
+        var FileList;
+        //绑定数据
+        function onFileName(e) {
+
+            for (var i = 0, l = FileList.length; i < l; i++) {
+                var g = FileList[i];
+                if (g.BusinessId == e.value) return g.FileName;
+            }
+            return "";
+        }
+        //绑定数据
+        function onFileDown(e) {
+
+            for (var i = 0, l = FileList.length; i < l; i++) {
+                var g = FileList[i];
+                if (g.BusinessId == e.value) return g.FileUrl;
+            }
+            return "";
+        }
+
+        //获取数据
+        $(document).ready(function () {
+            $.ajax({
+                url: "/ajax/drop/CommonDrop.ashx?method=GetFileListByfType",
+                async: false,
+                success: function (text) {
+                    FileList = eval(text);
+                },
+                error: function () {
+
+                }
+            });
+        });
+    </script>
+</body>
+</html>

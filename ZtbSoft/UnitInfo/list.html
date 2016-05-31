@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="/js/boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 100%;">
+        <div class="mini-toolbar" style="border-bottom: 0; padding: 0px;">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 100%;">
+                        <a class="mini-button" iconcls="icon-add" onclick="add()">增加</a>
+                        <a class="mini-button" iconcls="icon-edit" onclick="edit()">编辑</a>
+                        <a class="mini-button" iconcls="icon-remove" onclick="remove()">删除</a>
+                    </td>
+                    <td style="white-space: nowrap;">
+                        <input id="" class="mini-textbox" emptytext="请输入企业名称" style="width: 150px;" onenter="onKeyEnter" />
+                        <a class="mini-button" onclick="search()">查询</a>
+                        <a class="mini-button" onclick="chshow()">+</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--撑满页面-->
+    <div class="mini-fit">
+        <div id="dgUnitInfo" class="mini-datagrid" style="width: 100%; height: 100%;"
+            url="/ajax/UnitInfoAjax.ashx?method=GetList" idfield="UnitId"
+            allowresize="true" multiselect="true" allowalternating="true" pagesize="20">
+            <div property="columns">
+                <div type="indexcolumn" width="20"></div>
+                <div type="checkcolumn" width="30"></div>
+                <div field="UnitName" headeralign="center" allowsort="false">企业名称</div>
+                <div field="UnitTypeId" headeralign="center" allowsort="false" renderer="onUnitType">交易主体类型</div>
+                <div field="BusinessLicenseNum" headeralign="center" allowsort="false">营业执照号码</div>
+                <div field="TaxNum" headeralign="center" allowsort="false">税务登记证号</div>
+                <div field="Responsible" headeralign="center" allowsort="false">企业负责人</div>
+                <div field="ResponsiblePhone" headeralign="center" allowsort="false">负责人手机</div>
+                <div field="State" headeralign="center" allowsort="false" renderer="onState">状态</div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        mini.parse();//MiniUi初始化
+
+        var grid = mini.get("dgUnitInfo");//获取Id为datagrid1的DIV
+        grid.load();
+
+        //添加
+        function add() {
+            mini.open({//打开新页面
+                url: "/UnitInfo/detail.html",//页面地址
+                title: "新增",//标题
+                width: 600,//宽度
+                height: 480,//高度
+                onload: function () {//加载
+                    var data = { action: "add" };//传过去的值
+                },
+                ondestroy: function (action) {//页面操作完成      
+                    if (action != "cancel")//如果不是取消
+                        grid.reload();//重新加载
+                }
+            });
+        }
+
+
+        function edit() {
+            var row = grid.getSelected();//获取最新选中数据
+            if (row) {//判断是否为空
+                mini.open({//打开新页面
+                    url: "/UnitInfo/detail.html",//页面地址
+                    title: "编辑",//标题
+                    width: 600,//宽度
+                    height: 480,//高度
+                    onload: function () {//加载
+                        var iframe = this.getIFrameEl();//获取新页面
+                        var data = { action: "edit", id: row.UnitId };//传过去的值
+                        iframe.contentWindow.SetData(data);//调用新页面方法
+
+                    },
+                    ondestroy: function (action) {//页面操作完成
+                        if (action != "cancel")//如果不是取消
+                            grid.reload();//重新加载
+                    }
+                });
+
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+
+        grid.on("rowdblclick", function (e) {
+            var row = grid.getRow(grid.indexOf(e.record));
+            if (row) {//判断是否为空
+                mini.open({//打开新页面
+                    url: "/UnitInfo/detail.html",//页面地址
+                    title: "详细",//标题
+                    width: 600,//宽度
+                    height: 480,//高度
+                    onload: function () {//加载
+                        var iframe = this.getIFrameEl();//获取新页面
+                        var data = { action: "detail", id: row.UnitId };//传过去的值
+                        iframe.contentWindow.SetData(data);//调用新页面方法
+
+                    },
+                    ondestroy: function (action) {//页面操作完成
+                        //grid.reload();//重新加载
+                    }
+                });
+
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        });
+
+        function remove() {
+            var rows = grid.getSelecteds();//获取所有选中数据
+            if (rows.length > 0) {
+                mini.confirm("确定删除记录？", "确定？", function (action) {
+                    if (action == "ok") {
+                        var ids = [];
+                        for (var i = 0, l = rows.length; i < l; i++) {
+                            var r = rows[i];
+                            ids.push(r.UnitId);
+                        }
+                        var id = ids.join(',');//拼接Id字符串
+                        grid.loading("操作中，请稍后......"); //等待界面
+                        $.ajax({
+                            url: "/ajax/UnitInfoAjax.ashx?method=Remove&id=" + id,
+                            success: function (text) {
+                                grid.reload();//重新加载
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    }
+                }
+            );
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+        function search() {
+            var key = mini.get("").getValue();
+            grid.load({ UnitName: key });
+        }
+        function onKeyEnter(e) {
+            search();
+        }
+		
+		
+        //综合查询
+        function chshow() {
+            mini.open({
+                url: "/UnitInfo/search.html",
+                title: "综合查询",
+                width: 500,//宽度
+                height: 150,//高度
+                ondestroy: function (action) {
+                    if (action == "ok") {
+                        var iframe = this.getIFrameEl();
+                        var data = iframe.contentWindow.getData();
+                        data = mini.clone(data);
+                        grid.load({ District: data.District,UnitTypeId: data.UnitTypeId,UnitName: data.UnitName,UnitAddress: data.UnitAddress,TradeCode: data.TradeCode,UnitProperty: data.UnitProperty,BusinessLicenseNum: data.BusinessLicenseNum });
+                    }
+                }
+            });
+        }
+        
+        //根据值,显示不同文字
+        //定义
+        var UnitType;
+        //绑定数据
+        function onUnitType(e) {
+
+            for (var i = 0, l = UnitType.length; i < l; i++) {
+                var g = UnitType[i];
+                if (g.Id == e.value) return g.Name;
+            }
+            return "";
+        }
+		
+        //根据值,显示不同文字
+        //定义
+        var Trade;
+        //绑定数据
+        function onTrade(e) {
+
+            for (var i = 0, l = Trade.length; i < l; i++) {
+                var g = Trade[i];
+                if (g.Id == e.value) return g.Name;
+            }
+            return "";
+        }
+		
+        //根据值,显示不同文字
+        //定义
+        var Property;
+        //绑定数据
+        function onProperty(e) {
+
+            for (var i = 0, l = Property.length; i < l; i++) {
+                var g = Property[i];
+                if (g.Id == e.value) return g.Name;
+            }
+            return "";
+        }
+		
+        //根据值,显示不同文字
+        //定义
+        var Bank;
+        //绑定数据
+        function onBank(e) {
+
+            for (var i = 0, l = Bank.length; i < l; i++) {
+                var g = Bank[i];
+                if (g.Id == e.value) return g.Name;
+            }
+            return "";
+        }
+		
+        //根据值,显示不同文字
+        //定义
+        var State;
+        //绑定数据
+        function onState(e) {
+
+            for (var i = 0, l = State.length; i < l; i++) {
+                var g = State[i];
+                if (g.Id == e.value) return g.Name;
+            }
+            return "";
+        }
+		
+				
+        //获取数据
+        $(document).ready(function () {
+
+            $.ajax({
+                url: "/ajax/drop/UnitTypeDrop.ashx?method=GetList",
+                async: false,
+                success: function (text) {
+                    UnitType = eval(text);
+                },
+                error: function () {
+
+                }
+            });
+			
+            $.ajax({
+                url: "/ajax/drop/DictDrop.ashx?method=GetList",
+                data: { dCode: 'XMLX' },
+                async: false,
+                success: function (text) {
+                    Trade = eval(text);
+                },
+                error: function () {
+
+                }
+            });
+			
+            $.ajax({
+                url: "/ajax/drop/DictDrop.ashx?method=GetList",
+                data: { dCode: 'GSXZ' },
+                async: false,
+                success: function (text) {
+                    Property = eval(text);
+                },
+                error: function () {
+
+                }
+            });
+			
+            $.ajax({
+                url: "/ajax/drop/DictDrop.ashx?method=GetList",
+                data: { dCode: 'BANK' },
+                async: false,
+                success: function (text) {
+                    Bank = eval(text);
+                },
+                error: function () {
+
+                }
+            });
+			
+            $.ajax({
+                url: "/ajax/drop/StateDrop.ashx?method=GetList",
+                async: false,
+                success: function (text) {
+                    State = eval(text);
+                },
+                error: function () {
+
+                }
+            });
+			
+            grid.load();
+        });
+		
+    </script>
+</body>
+</html>

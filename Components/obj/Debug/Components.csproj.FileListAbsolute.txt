@@ -1,0 +1,8 @@
+F:\ZTB\ZtbSoft\Components\bin\Debug\Components.dll
+F:\ZTB\ZtbSoft\Components\bin\Debug\Components.pdb
+F:\ZTB\ZtbSoft\Components\bin\Debug\log4net.dll
+F:\ZTB\ZtbSoft\Components\bin\Debug\mysql.data.dll
+F:\ZTB\ZtbSoft\Components\bin\Debug\Newtonsoft.Json.Net20.dll
+F:\ZTB\ZtbSoft\Components\obj\Debug\Components.csprojResolveAssemblyReference.cache
+F:\ZTB\ZtbSoft\Components\obj\Debug\Components.dll
+F:\ZTB\ZtbSoft\Components\obj\Debug\Components.pdb

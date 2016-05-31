@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="/js/boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .detailTb {
+            table-layout: fixed;
+            width: 99%;
+            line-height: 24px;
+        }
+
+            .detailTb td {
+                height: 33px;
+            }
+    </style>
+</head>
+<body>
+    <form id="frmQuestion" method="post">
+        <input name="id" class="mini-hidden" />
+        <input name="QuestionId" class="mini-hidden" />
+        <div style="padding-left: 11px; padding-bottom: 5px;">
+            <table  class="detailTb">
+                <tr>
+                    <td width="80">项目ID</td>
+                    <td><input name="ProjectId" class="mini-combobox" textField="ProjectName" valueField="ProjectId" emptyText="请选择..." url="/ajax/drop/ProjectInfoDrop.ashx?method=GetList" required="true" /></td>
+                    <td width="80">标段ID</td>
+                    <td><input name="SectionId" class="mini-combobox" textField="SectionName" valueField="SectionId" emptyText="请选择..." url="/ajax/drop/SectionInfoDrop.ashx?method=GetList" required="true" /></td>
+                </tr>
+                <tr>
+                    <td width="80">提疑人</td>
+                    <td><input name="UnitName" class="mini-textbox" required="true" /></td>
+                    <td width="80">提疑时间</td>
+                    <td><input name="WriteDate" class="mini-datepicker" required="true" /></td>
+
+                </tr>
+                <tr>
+                    <td width="80">提疑内容</td>
+                    <td colspan="3"><input name="Context" class="mini-textarea" required="true" /></td>
+                </tr>
+                <!--<tr>
+                    <td width="80">状态</td>
+                    <td><input name="Staru" class="mini-combobox" textField="Name" valueField="Id" emptyText="请选择..." url="/ajax/drop/StaruDrop.ashx?method=GetList" required="true" /></td>
+                    <td width="80">答疑时间</td>
+                    <td><input name="AnswerDate" class="mini-textbox" required="true" /></td>
+                </tr>
+                <tr>
+                    <td width="80">答疑内容</td>
+                    <td><input name="Answer" class="mini-textarea" required="true" /></td>
+                    <td width="80">异议类型</td>
+                    <td><input name="QType" class="mini-combobox" textField="Name" valueField="Id" emptyText="请选择..." url="/ajax/drop/QTypeDrop.ashx?method=GetList" required="true" /></td>
+                </tr>
+                <tr>
+
+                    <td width="80">答疑人</td>
+                    <td><input name="EmployeeName" class="mini-textbox" required="true" /></td>
+                </tr>-->
+
+
+            </table>
+        </div>
+        <div style="text-align: center; padding: 10px;">
+            <a class="mini-button" id="btnOK" onclick="onOk" style="width: 60px; margin-right: 20px;">确定</a>
+            <a class="mini-button" onclick="onCancel" style="width: 60px;">取消</a>
+        </div>
+    </form>
+    <script type="text/javascript">
+        mini.parse();//MiniUi初始化
+        var form = new mini.Form("frmQuestion"); //获取整个form1表单
+        function SetData(data) {
+            if (data.action == "edit" || data.action == "detail") { //判断action操作
+                $.ajax({
+                    url: "/ajax/QuestionAjax.ashx?method=GetModel&id=" + data.id,//获取值
+                    async: false,
+                    success: function (text) {
+                        var o = mini.decode(text); //json转换成对象
+                        form.setData(o); //json赋值
+                        mini.getbyName("id").setValue(data.id);//json赋值
+                        if (data.action == "detail") {
+                            labelModel(form);
+                            $("#btnOK").hide();
+                        }
+                    },
+                    error: function (d) {
+
+                    }
+                });
+            }
+        }
+        function SaveData() {
+            var o = form.getData(); //获取页面所有值
+            form.validate();
+            if (form.isValid() == false) return; //验证
+            var json = mini.encode([o]);//数据转换为json
+            $.ajax({
+                url: "/ajax/QuestionAjax.ashx?method=Save",
+                data: { data: json },
+                async: false,
+                success: function (text) {
+                    if (!isNaN(text)) {
+                        CloseWindow();	//关闭
+                    }
+                },
+                error: function (d) {
+
+                }
+            });
+        }
+        function onOk(e) {
+            SaveData();
+        }
+        function onCancel(e) {
+            CloseWindow("cancel");
+        }
+    </script>
+</body>
+</html>

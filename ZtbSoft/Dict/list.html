@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="/js/boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 100%;">
+        <div class="mini-toolbar" style="border-bottom: 0; padding: 0px;">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 100%;">
+                        <a class="mini-button" iconcls="icon-add" onclick="add()">增加子节点</a>
+                        <a class="mini-button" iconcls="icon-edit" onclick="edit()">编辑</a>
+                        <a class="mini-button" iconcls="icon-remove" onclick="remove()">删除</a>
+                    </td>
+                    <td style="white-space: nowrap;"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--撑满页面-->
+    <div class="mini-fit">
+        <div id="treegrid1" class="mini-treegrid" style="width: 100%; height: 100%;"
+            url="/ajax/DictAjax.ashx?method=GetList" idField="DictId" parentField="PId" showTreeIcon="true"
+            treeColumn="DictCode" resultAsTree="false" expandOnLoad="0">
+            <div property="columns">
+                <div type="indexcolumn" width="20"></div>
+                <div name="DictCode" field="DictCode" headeralign="center" allowsort="false">编号</div>
+                <div field="DictName" headeralign="center" allowsort="false">名称</div>
+                <div field="DictValue" headeralign="center" allowsort="false">值</div>
+                <div field="Remark" headeralign="center" allowsort="false">说明</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        mini.parse();//MiniUi初始化
+
+        var grid = mini.get("treegrid1");//获取Id为datagrid1的DIV
+        grid.load();
+
+        //添加
+        function add() {
+            var row = grid.getSelected();//获取最新选中数据
+            if (row) {//判断是否为空
+                var id = row.DictId;
+                var pname = row.DictName;
+                mini.open({//打开新页面
+                    url: "/Dict/detail.html",//页面地址
+                    title: "新增",//标题
+                    width: 600,//宽度
+                    height: 360,//高度
+                    onload: function () {//加载
+                        var iframe = this.getIFrameEl();//获取新页面
+                        var data = { action: "add", pid: id, pname: pname };//传过去的值
+                        iframe.contentWindow.SetData(data);//调用新页面方法
+                    },
+                    ondestroy: function (action) {//页面操作完成      
+                        if (action != "cancel")//如果不是取消
+                            grid.reload();//重新加载
+                    }
+                });
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+
+
+        function edit() {
+            var row = grid.getSelected();//获取最新选中数据
+            if (row) {//判断是否为空
+                mini.open({//打开新页面
+                    url: "/Dict/detail.html",//页面地址
+                    title: "编辑",//标题
+                    width: 600,//宽度
+                    height: 360,//高度
+                    onload: function () {//加载
+                        var iframe = this.getIFrameEl();//获取新页面
+                        var data = { action: "edit", id: row.DictId };//传过去的值
+                        iframe.contentWindow.SetData(data);//调用新页面方法
+
+                    },
+                    ondestroy: function (action) {//页面操作完成
+                        if (action != "cancel")//如果不是取消
+                            grid.reload();//重新加载
+                    }
+                });
+
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+
+        //grid.on("rowdblclick", function (e) {
+        //    var row = grid.getRow(grid.indexOf(e.record));
+        //    if (row) {//判断是否为空
+        //        mini.open({//打开新页面
+        //            url: "/Dict/detail.html",//页面地址
+        //            title: "详细",//标题
+        //            width: 600,//宽度
+        //            height: 360,//高度
+        //            onload: function () {//加载
+        //                var iframe = this.getIFrameEl();//获取新页面
+        //                var data = { action: "detail", id: row.DictId };//传过去的值
+        //                iframe.contentWindow.SetData(data);//调用新页面方法
+
+        //            },
+        //            ondestroy: function (action) {//页面操作完成
+        //                //grid.reload();//重新加载
+        //            }
+        //        });
+
+        //    } else {
+        //        mini.alert("请选中一条记录", "提示");
+        //    }
+        //});
+
+        function remove() {
+            var rows = grid.getSelecteds();//获取所有选中数据
+            if (rows.length > 0) {
+                mini.confirm("确定删除记录？", "确定？", function (action) {
+                    if (action == "ok") {
+                        var ids = [];
+                        for (var i = 0, l = rows.length; i < l; i++) {
+                            var r = rows[i];
+                            ids.push(r.DictId);
+                        }
+                        var id = ids.join(',');//拼接Id字符串
+                        grid.loading("操作中，请稍后......"); //等待界面
+                        $.ajax({
+                            url: "/ajax/DictAjax.ashx?method=Remove&id=" + id,
+                            success: function (text) {
+                                grid.reload();//重新加载
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    }
+                }
+            );
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+    </script>
+</body>
+</html>

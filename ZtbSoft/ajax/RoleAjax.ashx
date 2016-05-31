@@ -1,0 +1,1 @@
+﻿<%@ WebHandler Language="C#" CodeBehind="RoleAjax.ashx.cs" Class="ZtbSoft.Web.ajax.RoleAjax" %>

@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>内容页测试</title>
+    <script src="/js/boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 100%;" class="mini-fit">
+        <!--Splitter-->
+        <div class="mini-splitter" style="width: 100%; height: 100%; padding: 0px;" borderstyle="border:1;">
+            <div showcollapsebutton="true" borderstyle="border:0" size="180">
+                <div id="menuTree" class="mini-tree" onnodeclick="onNodeSelect"
+                    textfield="name" idfield="id" parentfield="pid">
+                </div>
+            </div>
+            <div showcollapsebutton="false" borderstyle="border:0">
+                <div id="pl" class="mini-panel" style="width: 100%; height: 100%;" url="" showheader="false" borderstyle="border:0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        mini.parse();//MiniUi初始化
+        var tree = mini.get("menuTree");
+
+        function onNodeSelect() {
+        }
+
+        //获取数据
+        $(document).ready(function () {
+            //获取地址栏参数
+            var treeType = getQueryString('treetype');
+            $.ajax({
+                url: "/ajax/MenuTreeAjax.ashx?method=GetList",
+                data: { treeType: treeType },
+                async: false,
+                success: function (text) {
+                    var data = mini.decode(text);
+                    tree.loadList(data, "id", "pid");
+                },
+                error: function (d) {
+
+                }
+            });
+            if (treeType == "dict") {
+                var pl = mini.get("pl")
+                pl.setUrl("/dict/show.html?id=0");
+            }
+        });
+    </script>
+</body>
+</html>

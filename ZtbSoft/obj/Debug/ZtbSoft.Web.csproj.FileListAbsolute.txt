@@ -1,0 +1,13 @@
+F:\ZTB\ZtbSoft\ZtbSoft\bin\ZtbSoft.dll.config
+F:\ZTB\ZtbSoft\ZtbSoft\bin\ZtbSoft.dll
+F:\ZTB\ZtbSoft\ZtbSoft\bin\ZtbSoft.pdb
+F:\ZTB\ZtbSoft\ZtbSoft\bin\Components.dll
+F:\ZTB\ZtbSoft\ZtbSoft\bin\ZTB.Special.dll
+F:\ZTB\ZtbSoft\ZtbSoft\bin\MySql.Data.dll
+F:\ZTB\ZtbSoft\ZtbSoft\bin\Newtonsoft.Json.Net20.dll
+F:\ZTB\ZtbSoft\ZtbSoft\bin\log4net.dll
+F:\ZTB\ZtbSoft\ZtbSoft\bin\Components.pdb
+F:\ZTB\ZtbSoft\ZtbSoft\bin\ZTB.Special.pdb
+F:\ZTB\ZtbSoft\ZtbSoft\obj\Debug\ZtbSoft.Web.csprojResolveAssemblyReference.cache
+F:\ZTB\ZtbSoft\ZtbSoft\obj\Debug\ZtbSoft.dll
+F:\ZTB\ZtbSoft\ZtbSoft\obj\Debug\ZtbSoft.pdb

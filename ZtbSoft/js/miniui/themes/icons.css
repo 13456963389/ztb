@@ -1,0 +1,188 @@
+﻿.icon-add { background: url(icons/add.gif) no-repeat; }
+
+.icon-card { background: url(icons/card.png) no-repeat; background-size: 14px; }
+
+.icon-unsettle { background: url(icons/unsettle.png) no-repeat; background-size: 16px; }
+
+.icon-addnew { background: url(icons/addnew.gif) no-repeat; }
+
+.icon-edit { background: url(icons/edit.gif) no-repeat; }
+
+.icon-remove { background: url(icons/remove.gif) no-repeat; }
+
+.icon-save { background: url(icons/save.gif) no-repeat; }
+
+.icon-close { background: url(icons/cancel.gif) no-repeat; }
+
+.icon-cut { background: url(icons/cut.png) no-repeat; }
+
+.icon-ok { background: url(icons/ok.png) no-repeat; }
+
+.icon-no { background: url(icons/no.png) no-repeat; }
+
+.icon-cancel { background: url(icons/cancel.gif) no-repeat; }
+
+.icon-reload { background: url(icons/reload.png) no-repeat; }
+
+.icon-search { background: url(icons/search.gif) no-repeat; }
+
+.icon-print { background: url(icons/print.gif) no-repeat; }
+
+.icon-help { background: url(icons/help.gif) no-repeat; }
+
+.icon-undo { background: url(icons/undo.gif) no-repeat; }
+
+.icon-redo { background: url(icons/redo.gif) no-repeat; }
+
+.icon-tip { background: url(icons/tip.png) no-repeat; }
+
+.icon-zoomin { background: url(icons/zoomin.gif) no-repeat; }
+
+.icon-zoomout { background: url(icons/zoomout.gif) no-repeat; }
+
+.icon-goto { background: url(icons/goto.gif) no-repeat; }
+
+.icon-date { background: url(icons/date.gif) no-repeat; }
+
+.icon-filter { background: url(icons/filter.gif) no-repeat; }
+
+.icon-find { background: url(icons/find.png) no-repeat; }
+
+.icon-folder { background: url(icons/folder.gif) no-repeat; }
+
+.icon-folderopen { background: url(icons/folder-open.gif) no-repeat; }
+
+.icon-lock { background: url(icons/lock.png) no-repeat; }
+
+.icon-unlock { background: url(icons/unlock.gif) no-repeat; }
+
+.icon-new { background: url(icons/new.gif) no-repeat; }
+
+.icon-node { background: url(icons/node.png) no-repeat; }
+
+.icon-nowait { background: url(icons/nowait.gif) no-repeat; }
+
+.icon-sort { background: url(icons/sort.gif) no-repeat; }
+
+.icon-wait { background: url(icons/wait.gif) no-repeat; }
+
+.icon-upgrade { background: url(icons/upgrade.gif) no-repeat; }
+
+.icon-downgrade { background: url(icons/downgrade.gif) no-repeat; }
+
+.icon-download { background: url(icons/download.gif) no-repeat; }
+
+.icon-upload { background: url(icons/upload.gif) no-repeat; }
+
+.icon-user { background: url(icons/user.png) no-repeat; }
+
+.icon-split { background: url(icons/split.gif) no-repeat; }
+
+.icon-addfolder { background: url(icons/addfolder.gif) no-repeat; }
+
+.icon-expand { background: url(icons/expand.gif) no-repeat; }
+
+.icon-collapse { background: url(icons/collapse.gif) no-repeat; }
+
+.icon-jiesuan { background: url(icons/jiesuan.png) no-repeat; }
+
+.icon-dyckd { background: url(icons/dyckd.png) no-repeat; }
+
+.icon-dyjsd { background: url(icons/dyjsd.png) no-repeat; }
+
+.icon-chuku { background: url(icons/chuku.png) no-repeat; }
+
+.icon-fangong { background: url(icons/fangong.png) no-repeat; }
+
+.icon-pangong { background: url(icons/pangong.png) no-repeat; }
+
+.icon-shusong { background: url(icons/shusong.png) no-repeat; }
+
+.icon-penchang { background: url(icons/penchang.png) no-repeat; }
+
+.icon-exit { background: url(icons/exit.png) no-repeat; }
+
+.icon-wangong { background: url(icons/wangong.png) no-repeat; }
+
+.icon-yijie { background: url(icons/yijie.png) no-repeat; }
+
+.icon-zaixiu { background: url(icons/zaixiu.png) no-repeat; }
+
+.icon-guazhang { background: url(icons/guazhang.png) no-repeat; }
+
+.icon-xiche { background: url(icons/xiche.png) no-repeat; }
+
+.icon-shop { background: url(icons/shop.png) no-repeat; }
+
+.icon-home { background: url(icons/home.png) no-repeat; }
+
+.icon-hx { background: url(icons/hx.png) no-repeat; background-size: 16px 16px; }
+
+.icon-yfh { background: url(icons/yfh.png) no-repeat; background-size: 16px 16px; }
+
+.icon-ypz { background: url(icons/ypz.png) no-repeat; background-size: 16px 16px; }
+
+.icon-ytj { background: url(icons/ytj.png) no-repeat; background-size: 16px 16px; }
+
+.icon-In { background: url(icons/In.png) no-repeat left center; background-size: 12px 12px; }
+
+.icon-Out {
+    background: url(icons/Out.png) no-repeat left center;
+    background-size: 12px 12px;
+}
+.icon-dzf {
+    background: url(icons/dzf.png) no-repeat;
+    background-size: 16px 16px;
+}
+.icon-dxz {
+    background: url(icons/dxz.png) no-repeat;
+    background-size: 16px 16px;
+}
+
+
+
+.icon-Add1 {
+    background: url(icons/In.png) no-repeat;
+    background-size: 16px 16px;
+}
+
+.icon-Add2 {
+    background: url(icons/Add2.png) no-repeat;
+    background-size: 16px 16px;
+}
+.icon-Add3 {
+    background: url(icons/Add3.png) no-repeat;
+    background-size: 16px 16px;
+
+}
+.icon-Add4 {
+    background: url(icons/Add4.png) no-repeat;
+    background-size: 16px 16px;
+}
+
+.icon-Remove1 {
+    background: url(icons/Out.png) no-repeat;
+    background-size: 16px 16px;
+}
+.icon-Remove2 {
+    background: url(icons/Remove2.png) no-repeat;
+    background-size: 16px 16px;
+}
+.icon-Remove3 {
+    background: url(icons/Remove3.png) no-repeat;
+    background-size: 16px 16px;
+}
+.icon-Remove4 {
+    background: url(icons/Remove4.png) no-repeat;
+    background-size: 16px 16px;
+}
+.icon-Remove5 {
+    background: url(icons/Remove5.png) no-repeat;
+    background-size: 16px 16px;
+}
+.icon-Remove6 {
+    background: url(icons/Remove6.png) no-repeat;
+    background-size: 16px 16px;
+}
+
+

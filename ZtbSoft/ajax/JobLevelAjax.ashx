@@ -1,0 +1,1 @@
+﻿<%@ WebHandler Language="C#" CodeBehind="JobLevelAjax.ashx.cs" Class="ZtbSoft.Web.ajax.JobLevelAjax" %>

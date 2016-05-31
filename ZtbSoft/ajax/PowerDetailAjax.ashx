@@ -1,0 +1,1 @@
+﻿<%@ WebHandler Language="C#" CodeBehind="PowerDetailAjax.ashx.cs" Class="ZtbSoft.Web.ajax.PowerDetailAjax" %>

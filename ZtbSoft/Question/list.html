@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="/js/boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 100%;">
+        <div class="mini-toolbar" style="border-bottom: 0; padding: 0px;">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 100%;">
+                        <a class="mini-button" iconcls="icon-add" onclick="add()">增加</a>
+                        <a class="mini-button" iconcls="icon-edit" onclick="edit()">编辑</a>
+                        <a class="mini-button" iconcls="icon-user" onclick="read()">答疑</a>
+                        <a class="mini-button" iconcls="icon-remove" onclick="remove()">删除</a>
+                    </td>
+                    <td style="white-space:nowrap;">
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--撑满页面-->
+    <div class="mini-fit">
+        <div id="dgQuestion" class="mini-datagrid" style="width: 100%; height: 100%;"
+             url="/ajax/QuestionAjax.ashx?method=GetList" idfield="QuestionId"
+             allowresize="true" multiselect="true" allowalternating="true" pagesize="20">
+            <div property="columns">
+                <div type="indexcolumn" width="20"></div>
+                <div type="checkcolumn" width="30"></div>
+                <div field="SectionCode" headeralign="center" allowsort="false" renderer="onProjectInfo">标段编号</div>
+                <div field="SectionId" headeralign="center" allowsort="false" renderer="onSectionInfo">标段名称</div>
+                <div field="WriteDate" headeralign="center" allowsort="false" dateformat="yyyy-MM-dd">提疑时间</div>
+                <div field="UnitName" headeralign="center" allowsort="false">提疑人</div>
+                <div field="Staru" headeralign="center" allowsort="false" renderer="onStaru">状态</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        mini.parse();//MiniUi初始化
+
+        var grid = mini.get("dgQuestion");//获取Id为datagrid1的DIV
+        grid.load();
+
+        //添加
+        function add() {
+            mini.open({//打开新页面
+                url: "/Question/detail.html",//页面地址
+                title: "新增",//标题
+                width: 600,//宽度
+                height: 220,//高度
+                onload: function () {//加载
+                    var data = { action: "add" };//传过去的值
+                },
+                ondestroy: function (action) {//页面操作完成
+                    if (action != "cancel")//如果不是取消
+                        grid.reload();//重新加载
+                }
+            });
+        }
+
+
+        function edit() {
+            var row = grid.getSelected();//获取最新选中数据
+            if (row) {//判断是否为空
+                mini.open({//打开新页面
+                    url: "/Question/detail.html",//页面地址
+                    title: "编辑",//标题
+                    width: 600,//宽度
+                    height: 360,//高度
+                    onload: function () {//加载
+                        var iframe = this.getIFrameEl();//获取新页面
+                        var data = { action: "edit", id: row.QuestionId };//传过去的值
+                        iframe.contentWindow.SetData(data);//调用新页面方法
+
+                    },
+                    ondestroy: function (action) {//页面操作完成
+                        if (action != "cancel")//如果不是取消
+                            grid.reload();//重新加载
+                    }
+                });
+
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+
+        grid.on("rowdblclick", function (e) {
+            var row = grid.getRow(grid.indexOf(e.record));
+            if (row) {//判断是否为空
+                mini.open({//打开新页面
+                    url: "/Question/detail.html",//页面地址
+                    title: "详细",//标题
+                    width: 600,//宽度
+                    height: 360,//高度
+                    onload: function () {//加载
+                        var iframe = this.getIFrameEl();//获取新页面
+                        var data = { action: "detail", id: row.QuestionId };//传过去的值
+                        iframe.contentWindow.SetData(data);//调用新页面方法
+
+                    },
+                    ondestroy: function (action) {//页面操作完成
+                        //grid.reload();//重新加载
+                    }
+                });
+
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        });
+
+        function remove() {
+            var rows = grid.getSelecteds();//获取所有选中数据
+            if (rows.length > 0) {
+                mini.confirm("确定删除记录？", "确定？", function (action) {
+                    if (action == "ok") {
+                        var ids = [];
+                        for (var i = 0, l = rows.length; i < l; i++) {
+                            var r = rows[i];
+                            ids.push(r.QuestionId);
+                        }
+                        var id = ids.join(',');//拼接Id字符串
+                        grid.loading("操作中，请稍后......"); //等待界面
+                        $.ajax({
+                            url: "/ajax/QuestionAjax.ashx?method=Remove&id=" + id,
+                            success: function (text) {
+                                grid.reload();//重新加载
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    }
+                }
+            );
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+        function search() {
+            var key = mini.get("").getValue();
+            grid.load({ projectName: key });
+        }
+        function onKeyEnter(e) {
+            search();
+        }
+
+
+
+        //根据值,显示不同文字
+        //定义
+        var Staru;
+        //绑定数据
+        function onStaru(e) {
+
+            for (var i = 0, l = Staru.length; i < l; i++) {
+                var g = Staru[i];
+                if (g.Id == e.value) return g.Name;
+            }
+            return "";
+        }
+
+        //根据值,显示不同文字
+        //定义
+        var QType;
+        //绑定数据
+        function onQType(e) {
+
+            for (var i = 0, l = QType.length; i < l; i++) {
+                var g = QType[i];
+                if (g.Id == e.value) return g.Name;
+            }
+            return "";
+        }
+
+        //根据值,显示不同文字
+        //定义
+        var ProjectInfo;
+        //绑定数据
+        function onProjectInfo(e) {
+
+            for (var i = 0, l = ProjectInfo.length; i < l; i++) {
+                var g = ProjectInfo[i];
+                if (g.ProjectId == e.value) return g.ProjectName;
+            }
+            return "";
+        }
+
+        //根据值,显示不同文字
+        //定义
+        var SectionInfo;
+        //绑定数据
+        function onSectionInfo(e) {
+
+            for (var i = 0, l = SectionInfo.length; i < l; i++) {
+                var g = SectionInfo[i];
+                if (g.SectionId == e.value) return g.SectionName;
+            }
+            return "";
+        }
+
+
+        //获取数据
+        $(document).ready(function () {
+
+            $.ajax({
+                url: "/ajax/drop/StaruDrop.ashx?method=GetList",
+                async: false,
+                success: function (text) {
+                    Staru = eval(text);
+                },
+                error: function () {
+
+                }
+            });
+
+            $.ajax({
+                url: "/ajax/drop/QTypeDrop.ashx?method=GetList",
+                async: false,
+                success: function (text) {
+                    QType = eval(text);
+                },
+                error: function () {
+
+                }
+            });
+
+            $.ajax({
+                url: "/ajax/drop/ProjectInfoDrop.ashx?method=GetList",
+                async: false,
+                success: function (text) {
+                    ProjectInfo = eval(text);
+                },
+                error: function () {
+
+                }
+            });
+
+            $.ajax({
+                url: "/ajax/drop/SectionInfoDrop.ashx?method=GetList",
+                async: false,
+                success: function (text) {
+                    SectionInfo = eval(text);
+                },
+                error: function () {
+
+                }
+            });
+
+            grid.load();
+        });
+
+    </script>
+</body>
+</html>

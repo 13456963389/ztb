@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<script type="text/javascript">
+		function getUrlParams(){
+			var search = "";
+			if(window.location.search.length>0){
+				search = window.location.search.substring(1);
+			}
+			 
+			var params = search.split("&");
+			var retParams = {};
+			for (var i = 0; i < params.length; i++) {
+				var param = params[i].split("=");
+				retParams[param[0]] = param.length==2?param[1]:"";
+			}
+			return retParams;
+		}
+		window.onload = function(){
+			var urlParams = getUrlParams();
+			var params = {};
+
+			/*var use = decodeURIComponent(decodeURIComponent(urlParams.use));
+			useArr = use.split(";");
+			var services = [];
+			for (var i = 0; i < useArr.length; i++) {
+				var tr = useArr[i];
+				var trArr = tr.split(":");
+
+				var service = {};
+				service.lv2Name = trArr[0];
+				service.lv2ErpId = trArr[1];
+				service.discountName = trArr[2];
+				service.discountAmount = trArr[3];
+				service.discountType = trArr[4];
+
+				service.lv2Price = trArr[5];
+
+				var privileges = [];
+				var priArr = trArr.length>6?trArr[6].split("|"):[];
+				for (var j = 0; j < priArr.length; j++) {
+					var obj = priArr[j].split("@");
+					var priObj = {
+						name:obj[0],
+						price:obj[1]
+					};
+					privileges.push(priObj);
+				}
+				service.privileges = privileges;
+				services.push(service);
+			}*/
+
+
+			params.price = urlParams.price;
+			params.orderId = urlParams.orderId;
+			params.qrcodeUrl = decodeURIComponent(urlParams.url);
+			//params.services = services;
+			params.payMethod = urlParams.payMethod;
+
+		    parent.parent.window.paySuccessHandler(params);
+		}
+	</script>
+</body>
+</html>

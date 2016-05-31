@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="/js/boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .detailTb {
+            table-layout: fixed;
+            width: 99%;
+            line-height: 24px;
+        }
+
+            .detailTb td {
+                height: 33px;
+            }
+    </style>
+</head>
+<body>
+    <form id="frmProjectInfo" method="post">
+        <input name="id" class="mini-hidden" />
+        <input name="ProjectId" class="mini-hidden" />
+        <div style="padding-left: 11px; padding-bottom: 5px;">
+            <table class="detailTb">
+                <tr>
+                    <td width="80">项目编号</td>
+                    <td><input name="ProjectCode" class="mini-textbox" required="true" /></td>
+                    <td width="80">项目名称</td>
+                    <td><input name="ProjectName" class="mini-textbox" required="true" /></td>
+                    <td width="80">流程模版</td>
+                    <td><input name="ProjectType" class="mini-combobox" textfield="TemplateName" valuefield="TemplateId" emptyText="请选择..." url="/ajax/drop/FlowTemplateDrop.ashx?method=GetList" required="true" /></td>
+                </tr>
+                <tr>
+                    <td width="80">项目所在地</td>
+                    <td><input name="Address" class="mini-textbox" /></td>
+                    <td width="80">项目法人</td>
+                    <td><input name="ProjectLegal" class="mini-textbox" /></td>
+                    <td width="80">行业分类</td>
+                    <td><input name="TradeCode" class="mini-combobox" textField="Name" valueField="Id" emptyText="请选择..." url="/ajax/drop/DictDrop.ashx?method=GetList&dCode=XMLX" required="true" /></td>
+                </tr>
+                <tr>
+                    <td width="80">项目规模</td>
+                    <td><input name="ProjectScale" class="mini-textbox" /></td>
+                    <td width="80">招标人</td>
+                    <td><input name="TendereeId" class="mini-combobox" textField="UnitName" valueField="UnitId" emptyText="请选择..." url="/ajax/drop/UnitInfoDrop.ashx?method=GetListByUnitType&unType=3" required="true" /></td>
+                    <td width="80">招标代理</td>
+                    <td><input name="AgencyId" class="mini-combobox" textField="UnitName" valueField="UnitId" emptyText="请选择..." url="/ajax/drop/UnitInfoDrop.ashx?method=GetListByUnitType&unType=1" required="true" /></td>
+                </tr>
+                <tr>
+                    <td width="80">其他说明</td>
+                    <td colspan="5"><input name="Remark" class="mini-textarea" /></td>
+                </tr>
+            </table>
+        </div>
+        <div style="padding-left: 11px;padding-right:11px;">
+            <div class="mini-toolbar" style="border-bottom: 0; padding: 0px;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 100%;">
+                            <a class="mini-button" iconcls="icon-add" onclick="addSection()">增加标段</a>
+                            <a class="mini-button" iconcls="icon-edit" onclick="editSection()">编辑标段</a>
+                            <a class="mini-button" iconcls="icon-remove" onclick="removeSection()">删除标段</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="padding-left: 11px;padding-right:11px;">
+            <div id="dgSectionInfo" class="mini-datagrid" style="width: 100%; height: 250px;"
+                 url="/ajax/SectionInfoAjax.ashx?method=GetList" idfield="SectionId"
+                 allowresize="true" multiselect="true" allowalternating="true" showpager="false">
+                <div property="columns">
+                    <div type="indexcolumn" width="20"></div>
+                    <div type="checkcolumn" width="30"></div>
+                    <div field="SectionCode" headeralign="center" allowsort="false">标段编号</div>
+                    <div field="SectionName" headeralign="center" allowsort="false">标段名称</div>
+                    <div field="ContractPrice" headeralign="center" currencyunit="￥" allowsort="false">合同估算价</div>
+                    <div field="ControlPrice" headeralign="center" currencyunit="￥" allowsort="false">控制价</div>
+                    <div field="SectionContext" headeralign="center" allowsort="false">标段内容</div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; padding: 10px;">
+            <a class="mini-button" id="btnOK" onclick="onOk" style="width: 60px; margin-right: 20px;">确定</a>
+            <a class="mini-button" onclick="onCancel" style="width: 60px;">取消</a>
+        </div>
+    </form>
+    <script type="text/javascript">
+        mini.parse();//MiniUi初始化
+        var form = new mini.Form("frmProjectInfo"); //获取整个form1表单
+        var grid = mini.get("dgSectionInfo");//获取Id为datagrid1的DIV
+        grid.load();
+        function SetData(data) {
+            if (data.action == "edit" || data.action == "detail") { //判断action操作
+                $.ajax({
+                    url: "/ajax/ProjectInfoAjax.ashx?method=GetModel&id=" + data.id,//获取值
+                    async: false,
+                    success: function (text) {
+                        var o = mini.decode(text); //json转换成对象
+                        form.setData(o); //json赋值
+                        mini.getbyName("id").setValue(data.id);//json赋值
+                        if (data.action == "detail") {
+                            labelModel(form);
+                            $("#btnOK").hide();
+                        }
+                    },
+                    error: function (d) {
+
+                    }
+                });
+            }
+        }
+
+        function addSection() {
+            mini.open({//打开新页面
+                url: "/SectionInfo/detail.html",//页面地址
+                title: "新增",//标题
+                width: 880,//宽度
+                height: 330,//高度
+                onload: function () {//加载
+                    var data = { action: "add" };//传过去的值
+                },
+                ondestroy: function (action) {//页面操作完成
+                    if (action != "cancel")//如果不是取消
+                        grid.addRow(getSecRowInfo(action), 0);
+                }
+            });
+        }
+
+        function getSecRowInfo(secJson) {
+            if (secJson == "close") return;
+            var sec = mini.decode(secJson)[0];
+            var row = {};
+            row.SectionCode = sec.SectionCode;
+            row.SectionName = sec.SectionName;
+            row.ContractPrice = sec.ContractPrice;
+            row.ControlPrice = sec.ControlPrice;
+            row.SectionContext = sec.SectionContext;
+            row.UnitQName = sec.UnitQName;
+            row.UserQName = sec.UserQName;
+            row.Remark = sec.Remark;
+            return row;
+        }
+
+        function removeSection() {
+            var rows = grid.getSelecteds();//获取所有选中数据
+            if (rows.length > 0) {
+                mini.confirm("确定删除记录？", "确定？", function (action) {
+                    if (action == "ok") {
+                        grid.removeRows(rows, true);
+                    }
+                }
+            );
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+
+        function editSection() {
+            var row = grid.getSelected();//获取最新选中数据
+            if (row) {//判断是否为空
+                mini.open({//打开新页面
+                    url: "/SectionInfo/detail.html",//页面地址
+                    title: "编辑",//标题
+                    width: 880,//宽度
+                    height: 340,//高度
+                    onload: function () {//加载
+                        var iframe = this.getIFrameEl();//获取新页面
+                        var data = { action: "edit", sec: row };//传过去的值
+                        iframe.contentWindow.SetData(data);//调用新页面方法
+                    },
+                    ondestroy: function (action) {//页面操作完成
+                        if (action != "cancel")//如果不是取消
+                            grid.updateRow(row, getSecRowInfo(action));
+                    }
+                });
+
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        }
+
+        grid.on("rowdblclick", function (e) {
+            var row = grid.getRow(grid.indexOf(e.record));
+            if (row) {//判断是否为空
+                mini.open({//打开新页面
+                    url: "/SectionInfo/detail.html",//页面地址
+                    title: "编辑",//标题
+                    width: 880,//宽度
+                    height: 340,//高度
+                    onload: function () {//加载
+                        var iframe = this.getIFrameEl();//获取新页面
+                        var data = { action: "edit", sec: row };//传过去的值
+                        iframe.contentWindow.SetData(data);//调用新页面方法
+
+                    },
+                    ondestroy: function (action) {//页面操作完成
+                        if (action != "cancel")//如果不是取消
+                            grid.updateRow(row, getSecRowInfo(action));
+                    }
+                });
+
+            } else {
+                mini.alert("请选中一条记录", "提示");
+            }
+        });
+
+        function SaveData() {
+            var o = form.getData(); //获取页面所有值
+            form.validate();
+            if (form.isValid() == false) return; //验证
+            var json = mini.encode([o]);//数据转换为json
+            var secs = mini.encode(grid.getData());
+            $.ajax({
+                url: "/ajax/ProjectInfoAjax.ashx?method=Save",
+                data: { data: json, secs: secs },
+                async: false,
+                success: function (text) {
+                    if (!isNaN(text)) {
+                        CloseWindow();	//关闭
+                    }
+                },
+                error: function (d) {
+
+                }
+            });
+        }
+        function onOk(e) {
+            SaveData();
+        }
+        function onCancel(e) {
+            CloseWindow("cancel");
+        }
+    </script>
+</body>
+</html>
