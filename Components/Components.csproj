@@ -146,6 +146,7 @@
     <Compile Include="SessionCommon.cs" />
     <Compile Include="SqlHelper.cs" />
     <Compile Include="Trans_SQL.cs" />
+    <Compile Include="WorkFlowCode\WFEnum.cs" />
     <Compile Include="WorkFlowCode\WorkFlowOperation.cs" />
   </ItemGroup>
   <ItemGroup />

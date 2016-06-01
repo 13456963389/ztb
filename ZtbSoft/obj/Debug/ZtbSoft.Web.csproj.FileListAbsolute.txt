@@ -11,3 +11,16 @@ F:\ZTB\ZtbSoft\ZtbSoft\bin\ZTB.Special.pdb
 F:\ZTB\ZtbSoft\ZtbSoft\obj\Debug\ZtbSoft.Web.csprojResolveAssemblyReference.cache
 F:\ZTB\ZtbSoft\ZtbSoft\obj\Debug\ZtbSoft.dll
 F:\ZTB\ZtbSoft\ZtbSoft\obj\Debug\ZtbSoft.pdb
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\bin\ZtbSoft.dll.config
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\bin\ZtbSoft.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\bin\ZtbSoft.pdb
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\bin\Components.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\bin\ZTB.Special.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\bin\MySql.Data.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\bin\Newtonsoft.Json.Net20.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\bin\log4net.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\bin\Components.pdb
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\bin\ZTB.Special.pdb
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\obj\Debug\ZtbSoft.Web.csprojResolveAssemblyReference.cache
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\obj\Debug\ZtbSoft.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\ZtbSoft\obj\Debug\ZtbSoft.pdb
