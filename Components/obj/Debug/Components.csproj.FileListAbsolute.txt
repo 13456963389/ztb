@@ -14,3 +14,11 @@ F:\ZTB\ZtbSoft\ztb\Components\bin\Debug\Newtonsoft.Json.Net20.dll
 F:\ZTB\ZtbSoft\ztb\Components\obj\Debug\Components.csprojResolveAssemblyReference.cache
 F:\ZTB\ZtbSoft\ztb\Components\obj\Debug\Components.dll
 F:\ZTB\ZtbSoft\ztb\Components\obj\Debug\Components.pdb
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\bin\Debug\Components.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\bin\Debug\Components.pdb
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\bin\Debug\log4net.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\bin\Debug\mysql.data.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\bin\Debug\Newtonsoft.Json.Net20.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\obj\Debug\Components.csprojResolveAssemblyReference.cache
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\obj\Debug\Components.dll
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\obj\Debug\Components.pdb
