@@ -68,6 +68,7 @@
     <Compile Include="BLL\NoticeBLL.cs" />
     <Compile Include="BLL\PowerDetailBLL.cs" />
     <Compile Include="BLL\PowerObjectBLL.cs" />
+    <Compile Include="BLL\ProjectExtractBLL.cs" />
     <Compile Include="BLL\ProjectInfoBLL.cs" />
     <Compile Include="BLL\QualificationBLL.cs" />
     <Compile Include="BLL\QuestionBLL.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="DAL\NoticeDAL.cs" />
     <Compile Include="DAL\PowerDetailDAL.cs" />
     <Compile Include="DAL\PowerObjectDAL.cs" />
+    <Compile Include="DAL\ProjectExtractDAL.cs" />
     <Compile Include="DAL\ProjectInfoDAL.cs" />
     <Compile Include="DAL\QualificationDAL.cs" />
     <Compile Include="DAL\QuestionDAL.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Models\Notice.cs" />
     <Compile Include="Models\PowerDetail.cs" />
     <Compile Include="Models\PowerObject.cs" />
+    <Compile Include="Models\ProjectExtract.cs" />
     <Compile Include="Models\ProjectInfo.cs" />
     <Compile Include="Models\Qualification.cs" />
     <Compile Include="Models\Question.cs" />

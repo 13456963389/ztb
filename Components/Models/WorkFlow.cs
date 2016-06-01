@@ -92,6 +92,11 @@ namespace ZtbSoft.Models
         [DataMember(IsRequired = false)]
 		public string NodeShowUrl{get;set;}
         /// <summary>
+        /// 业务主键ID
+        /// </summary>
+        [DataMember(IsRequired = false)]
+		public int? BusinessId{get;set;}
+        /// <summary>
         /// 工作流
         /// </summary>
         public WorkFlow() { }
@@ -161,6 +166,10 @@ namespace ZtbSoft.Models
             if (dr.Table.Columns.Contains("NodeShowUrl") && !dr.IsNull("NodeShowUrl"))
             {
                 NodeShowUrl = dr["NodeShowUrl"].ToString();
+            }
+            if (dr.Table.Columns.Contains("BusinessId") && !dr.IsNull("BusinessId"))
+            {
+                BusinessId = Convert.ToInt32(dr["BusinessId"]);
             }
         }
 	}
