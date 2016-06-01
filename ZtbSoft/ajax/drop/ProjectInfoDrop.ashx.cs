@@ -51,6 +51,14 @@ namespace ZtbSoft.WEB.ajax.drop
             }
         }
 
+        public void GetZjList(HttpContext context)
+        {
+            ArrayList data = new ProjectInfoBLL().GetAll("");
+            String json = JsonHelper.Encode(data);
+            context.Response.ContentType = "text/plain";
+            context.Response.Write(json);
+        }
+
         public void GetList(HttpContext context)
         {
 

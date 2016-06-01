@@ -14,24 +14,24 @@ namespace ZtbSoft.Web.Ajax
     /// <summary>
     /// ExpertExtract 评标专家抽取记录
     /// </summary>
-    public class ExpertExtractAjax : IHttpHandler,IRequiresSessionState
+    public class ExpertExtractAjax : IHttpHandler, IRequiresSessionState
     {
-		
+
         private DataTable dtPower = null;   //当前用户权限
         private string powerCode = enum_PowerObjectCode.ExpertExtract.ToString();
         public void ProcessRequest(HttpContext context)
         {
             try
             {
-				//判断是否登录
-				string loginStr = new loginBLL().isLogin(context, out dtPower);
+                //判断是否登录
+                string loginStr = new loginBLL().isLogin(context, out dtPower);
                 if (!string.IsNullOrWhiteSpace(loginStr))
                 {
                     context.Response.Clear();
                     context.Response.Write(loginStr);
                     return;
                 }
-				
+
                 String methodName = context.Request["method"];
                 Type type = this.GetType();
                 MethodInfo method = type.GetMethod(methodName);
@@ -51,7 +51,7 @@ namespace ZtbSoft.Web.Ajax
         }
         public void GetList(HttpContext context)
         {
-			//判断查看权限
+            //判断查看权限
             string powerStr = PowerHelper.isView(powerCode, dtPower);
             if (!string.IsNullOrWhiteSpace(powerStr))
             {
@@ -69,9 +69,9 @@ namespace ZtbSoft.Web.Ajax
             String sortOrder = context.Request["sortOrder"];
 
             //查询字段
-			string ExpertId = context.Request["ExpertId"];
-string ProjectId = context.Request["ProjectId"];
-string TradeCode = context.Request["TradeCode"];
+            string ExpertId = context.Request["ExpertId"];
+            string ProjectId = context.Request["ProjectId"];
+            string TradeCode = context.Request["TradeCode"];
 
 
             int count = 0;
@@ -85,20 +85,20 @@ string TradeCode = context.Request["TradeCode"];
                 if (sortOrder != "desc") sortOrder = "asc";
                 ord += " " + sortField + " " + sortOrder;
             }
-			//查询条件
-			if (!string.IsNullOrWhiteSpace(ExpertId))
-{  sel_whe += " and ExpertId = '" + ExpertId + "'";  }
-if (!string.IsNullOrWhiteSpace(ProjectId))
-{  sel_whe += " and ProjectId like '%" + ProjectId + "%'";  }
-if (!string.IsNullOrWhiteSpace(TradeCode))
-{  sel_whe += " and TradeCode = '" + TradeCode + "'";  }
+            //查询条件
+            if (!string.IsNullOrWhiteSpace(ExpertId))
+            { sel_whe += " and ExpertId = '" + ExpertId + "'"; }
+            if (!string.IsNullOrWhiteSpace(ProjectId))
+            { sel_whe += " and ProjectId like '%" + ProjectId + "%'"; }
+            if (!string.IsNullOrWhiteSpace(TradeCode))
+            { sel_whe += " and TradeCode = '" + TradeCode + "'"; }
 
-			
-			if (!string.IsNullOrWhiteSpace(sel_whe))
+
+            if (!string.IsNullOrWhiteSpace(sel_whe))
                 sel_whe = sel_whe.Substring(4);
 
-			Hashtable result = new Hashtable();
-			
+            Hashtable result = new Hashtable();
+
             result["data"] = new ExpertExtractBLL().GetPage(sel_col, sel_whe, ord, pageSize, pageIndex, out count);
             result["total"] = count;
 
@@ -108,13 +108,25 @@ if (!string.IsNullOrWhiteSpace(TradeCode))
             context.Response.Write(json);
         }
 
+        /// <summary>
+        /// 获取流程项目信息
+        /// </summary>
+        /// <param name="context"></param>
         public void GetProjectInfo(HttpContext context)
         {
             string pid = context.Request["pid"];
             Hashtable result = new Hashtable();
             result["data"] = new SProjectInfoBLL().GetZJCQProjectInfoByProjectId(pid);
-            result["total"] = new SessionCommon().GetEmployeeName(context);
+            result["ename"] = new SessionCommon().GetEmployeeName(context);
+            String json = JsonHelper.Encode(result);
+            context.Response.ContentType = "text/plain";
+            context.Response.Write(json);
         }
+        
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="context"></param>
         public void Save(HttpContext context)
         {
             int count = 0;
@@ -131,7 +143,7 @@ if (!string.IsNullOrWhiteSpace(TradeCode))
 
                 if (state == "added" || id == "")           //新增：id为空，或_state为added
                 {
-					//判断新增权限
+                    //判断新增权限
                     string powerStr = PowerHelper.isAdd(powerCode, dtPower);
                     if (!string.IsNullOrWhiteSpace(powerStr))
                     {
@@ -140,13 +152,13 @@ if (!string.IsNullOrWhiteSpace(TradeCode))
                         context.Response.Write(powerStr);
                         return;
                     }
-					
-                    row["ExtractId"]=-1;
+
+                    row["ExtractId"] = -1;
                     count += new ExpertExtractBLL().Insert(JsonHelper.Encode(row));
                 }
                 else if (state == "removed" || state == "deleted")  //删除
                 {
-					//判断删除权限
+                    //判断删除权限
                     string powerStr = PowerHelper.isDelete(powerCode, dtPower);
                     if (!string.IsNullOrWhiteSpace(powerStr))
                     {
@@ -155,12 +167,12 @@ if (!string.IsNullOrWhiteSpace(TradeCode))
                         context.Response.Write(powerStr);
                         return;
                     }
-					
+
                     count += new ExpertExtractBLL().DeleteByExtractId(Convert.ToInt32(id));
                 }
                 else if (state == "modified" || state == "") //更新：_state为空或modified
                 {
-					//判断修改权限
+                    //判断修改权限
                     string powerStr = PowerHelper.isEdit(powerCode, dtPower);
                     if (!string.IsNullOrWhiteSpace(powerStr))
                     {
@@ -169,7 +181,7 @@ if (!string.IsNullOrWhiteSpace(TradeCode))
                         context.Response.Write(powerStr);
                         return;
                     }
-					
+
                     count += new ExpertExtractBLL().Update(JsonHelper.Encode(row));
                 }
             }
@@ -183,7 +195,7 @@ if (!string.IsNullOrWhiteSpace(TradeCode))
         /// </summary>
         public void Remove(HttpContext context)
         {
-			//判断删除权限
+            //判断删除权限
             string powerStr = PowerHelper.isDelete(powerCode, dtPower);
             if (!string.IsNullOrWhiteSpace(powerStr))
             {
@@ -192,7 +204,7 @@ if (!string.IsNullOrWhiteSpace(TradeCode))
                 context.Response.Write(powerStr);
                 return;
             }
-			
+
             String idStr = context.Request["id"];
             if (String.IsNullOrEmpty(idStr)) return;
             String[] ids = idStr.Split(',');
@@ -208,7 +220,7 @@ if (!string.IsNullOrWhiteSpace(TradeCode))
         /// </summary>
         public void GetModel(HttpContext context)
         {
-			//判断查看权限
+            //判断查看权限
             string powerStr = PowerHelper.isView(powerCode, dtPower);
             if (!string.IsNullOrWhiteSpace(powerStr))
             {
@@ -217,7 +229,7 @@ if (!string.IsNullOrWhiteSpace(TradeCode))
                 context.Response.Write(powerStr);
                 return;
             }
-			
+
             string id = context.Request["id"];
             ExpertExtract expertExtract = new ExpertExtractBLL().GetByExtractId(Convert.ToInt32(id));
             String json = JsonHelper.Encode(expertExtract);

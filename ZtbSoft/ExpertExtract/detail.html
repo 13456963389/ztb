@@ -33,7 +33,7 @@
             <table class="detailTb">
                 <tr>
                     <td width="80">项目名称</td>
-                    <td><input name="ProjectId" class="mini-textbox" readonly="readonly" /></td>
+                    <td><input name="ProjectId" class="mini-combobox" textField="ProjectName" valueFile="ProjectId" emptyText="请选择..." url="/ajax/drop/"/></td>
                     <td width="80">招标人</td>
                     <td><input name="TendereeName" class="mini-textbox" readonly="readonly" /></td>
                     <td width="80">抽取时间</td>
@@ -45,7 +45,7 @@
                     <td width="80">招标方式</td>
                     <td><input name="TendereeType" class="mini-textbox" readonly="readonly" /></td>
                     <td width="80">拟抽取人数</td>
-                    <td><input name="NUserCount" class="mini-textbox"  required="true"/></td>
+                    <td><input name="NUserCount" class="mini-textbox" required="true" /></td>
                 </tr>
                 <tr>
                     <td width="80">项目类型</td>
@@ -99,9 +99,20 @@
     <script type="text/javascript">
         mini.parse();//MiniUi初始化
         var form = new mini.Form("frmExpertExtract"); //获取整个form1表单
-        function BindData(data)
-        {
+        function BindData(data) {
+            var pid = data.pid;
+            $.ajax({
+                url: "/ajax/ExpertExtractAjax.ashx?method=GetProjectInfo&pid=" + pid,
+                async: false,
+                success: function (text) {
+                    var o = mini.decode(text); //json转换成对象
+                    mini.getbyName("EmployeeName").setValue(o.ename);
+                    form.setData(o); //json赋值
+                },
+                error: function (d) {
 
+                }
+            });
         }
         function SetData(data) {
             if (data.action == "edit" || data.action == "detail") { //判断action操作
