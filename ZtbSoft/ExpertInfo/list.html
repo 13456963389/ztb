@@ -28,7 +28,7 @@
                     <td style="white-space: nowrap;">
                         <input id="ExpertName" class="mini-textbox" emptytext="请输入专家姓名" style="width: 150px;" onenter="onKeyEnter" />
                         <a class="mini-button" onclick="search()">查询</a>
-                        <a class="mini-button" onclick="chshow()">+</a>
+                        <!--<a class="mini-button" onclick="chshow()">+</a>-->
                     </td>
                 </tr>
             </table>
@@ -45,7 +45,7 @@
                 <div field="ExpertName" headeralign="center" allowsort="false">专家姓名</div>
                 <div field="Sex" headeralign="center" allowsort="false" renderer="onSex">专家性别</div>
                 <div field="TradeCode" headeralign="center" allowsort="false" renderer="onTrade">行业类型</div>
-                <div field="Phone" headeralign="center" allowsort="false">联系电话</div>
+                <div field="Phone" headeralign="center" allowsort="false">手机号码</div>
                 <div field="Address" headeralign="center" allowsort="false">联系地址</div>
                 <div field="State" headeralign="center" allowsort="false" renderer="onState">状态</div>
             </div>
@@ -63,8 +63,8 @@
             mini.open({//打开新页面
                 url: "/ExpertInfo/detail.html",//页面地址
                 title: "新增",//标题
-                width: 600,//宽度
-                height: 360,//高度
+                width: 800,//宽度
+                height: 460,//高度
                 onload: function () {//加载
                     var data = { action: "add" };//传过去的值
                 },
@@ -82,8 +82,8 @@
                 mini.open({//打开新页面
                     url: "/ExpertInfo/detail.html",//页面地址
                     title: "编辑",//标题
-                    width: 600,//宽度
-                    height: 360,//高度
+                    width: 800,//宽度
+                    height: 460,//高度
                     onload: function () {//加载
                         var iframe = this.getIFrameEl();//获取新页面
                         var data = { action: "edit", id: row.ExpertId };//传过去的值
@@ -107,8 +107,8 @@
                 mini.open({//打开新页面
                     url: "/ExpertInfo/detail.html",//页面地址
                     title: "详细",//标题
-                    width: 600,//宽度
-                    height: 360,//高度
+                    width: 800,//宽度
+                    height: 460,//高度
                     onload: function () {//加载
                         var iframe = this.getIFrameEl();//获取新页面
                         var data = { action: "detail", id: row.ExpertId };//传过去的值

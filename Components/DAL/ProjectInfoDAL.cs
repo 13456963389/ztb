@@ -33,6 +33,7 @@ namespace ZtbSoft.DAL
 					new SqlParameter("@CheckStatu", ToDBValue(projectInfo.CheckStatu)),
 					new SqlParameter("@EmployeeId", ToDBValue(projectInfo.EmployeeId)),
 					new SqlParameter("@CreateTime", ToDBValue(projectInfo.CreateTime)),
+					new SqlParameter("@TendereeType", ToDBValue(projectInfo.TendereeType)),
 				};
              
 			 return Convert.ToInt32(SqlHelper.ExecuteScalar(CommandType.StoredProcedure, "UP_ProjectInfo_INSERT", paras));
@@ -54,7 +55,8 @@ namespace ZtbSoft.DAL
 						Remark,
 						CheckStatu,
 						EmployeeId,
-						CreateTime
+						CreateTime,
+						TendereeType
 						) VALUES (
 						@ProjectCode,
 						@ProjectName,
@@ -68,7 +70,8 @@ namespace ZtbSoft.DAL
 						@Remark,
 						@CheckStatu,
 						@EmployeeId,
-						@CreateTime
+						@CreateTime,
+						@TendereeType
 						) select SCOPE_IDENTITY()";
 			SqlParameter[] para = new SqlParameter[]
 				{
@@ -85,6 +88,7 @@ namespace ZtbSoft.DAL
 					new SqlParameter("@CheckStatu", ToDBValue(projectInfo.CheckStatu)),
 					new SqlParameter("@EmployeeId", ToDBValue(projectInfo.EmployeeId)),
 					new SqlParameter("@CreateTime", ToDBValue(projectInfo.CreateTime)),
+					new SqlParameter("@TendereeType", ToDBValue(projectInfo.TendereeType)),
 				};
 				
 			int newId = Convert.ToInt32(SqlHelper.ExecuteScalar(sql, para));
@@ -126,6 +130,7 @@ namespace ZtbSoft.DAL
 					,new SqlParameter("@CheckStatu", ToDBValue(projectInfo.CheckStatu))
 					,new SqlParameter("@EmployeeId", ToDBValue(projectInfo.EmployeeId))
 					,new SqlParameter("@CreateTime", ToDBValue(projectInfo.CreateTime))
+					,new SqlParameter("@TendereeType", ToDBValue(projectInfo.TendereeType))
 			};
 
 			  return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, "UP_ProjectInfo_UPDATE", paras);
@@ -177,6 +182,9 @@ namespace ZtbSoft.DAL
             if(projectInfo.CreateTime != null)
                 strSet+="CreateTime = @CreateTime," ;
                     
+            if(projectInfo.TendereeType != null)
+                strSet+="TendereeType = @TendereeType," ;
+                    
             strSet = strSet.TrimEnd(',');
                
             sql=sql+ strSet+" WHERE ProjectId = @ProjectId";
@@ -198,6 +206,7 @@ namespace ZtbSoft.DAL
 					,new SqlParameter("@CheckStatu", ToDBValue(projectInfo.CheckStatu))
 					,new SqlParameter("@EmployeeId", ToDBValue(projectInfo.EmployeeId))
 					,new SqlParameter("@CreateTime", ToDBValue(projectInfo.CreateTime))
+					,new SqlParameter("@TendereeType", ToDBValue(projectInfo.TendereeType))
 			};
 
 			return SqlHelper.ExecuteNonQuery(sql, para);

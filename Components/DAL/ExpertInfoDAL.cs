@@ -26,6 +26,10 @@ namespace ZtbSoft.DAL
 					new SqlParameter("@Phone", ToDBValue(expertInfo.Phone)),
 					new SqlParameter("@Address", ToDBValue(expertInfo.Address)),
 					new SqlParameter("@State", ToDBValue(expertInfo.State)),
+					new SqlParameter("@Title", ToDBValue(expertInfo.Title)),
+					new SqlParameter("@UnitName", ToDBValue(expertInfo.UnitName)),
+					new SqlParameter("@Birthday", ToDBValue(expertInfo.Birthday)),
+					new SqlParameter("@Duties", ToDBValue(expertInfo.Duties)),
 				};
              
 			 return Convert.ToInt32(SqlHelper.ExecuteScalar(CommandType.StoredProcedure, "UP_ExpertInfo_INSERT", paras));
@@ -40,14 +44,22 @@ namespace ZtbSoft.DAL
 						TradeCode,
 						Phone,
 						Address,
-						State
+						State,
+						Title,
+						UnitName,
+						Birthday,
+						Duties
 						) VALUES (
 						@ExpertName,
 						@Sex,
 						@TradeCode,
 						@Phone,
 						@Address,
-						@State
+						@State,
+						@Title,
+						@UnitName,
+						@Birthday,
+						@Duties
 						) select SCOPE_IDENTITY()";
 			SqlParameter[] para = new SqlParameter[]
 				{
@@ -57,6 +69,10 @@ namespace ZtbSoft.DAL
 					new SqlParameter("@Phone", ToDBValue(expertInfo.Phone)),
 					new SqlParameter("@Address", ToDBValue(expertInfo.Address)),
 					new SqlParameter("@State", ToDBValue(expertInfo.State)),
+					new SqlParameter("@Title", ToDBValue(expertInfo.Title)),
+					new SqlParameter("@UnitName", ToDBValue(expertInfo.UnitName)),
+					new SqlParameter("@Birthday", ToDBValue(expertInfo.Birthday)),
+					new SqlParameter("@Duties", ToDBValue(expertInfo.Duties)),
 				};
 				
 			int newId = Convert.ToInt32(SqlHelper.ExecuteScalar(sql, para));
@@ -91,6 +107,10 @@ namespace ZtbSoft.DAL
 					,new SqlParameter("@Phone", ToDBValue(expertInfo.Phone))
 					,new SqlParameter("@Address", ToDBValue(expertInfo.Address))
 					,new SqlParameter("@State", ToDBValue(expertInfo.State))
+					,new SqlParameter("@Title", ToDBValue(expertInfo.Title))
+					,new SqlParameter("@UnitName", ToDBValue(expertInfo.UnitName))
+					,new SqlParameter("@Birthday", ToDBValue(expertInfo.Birthday))
+					,new SqlParameter("@Duties", ToDBValue(expertInfo.Duties))
 			};
 
 			  return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, "UP_ExpertInfo_UPDATE", paras);
@@ -121,6 +141,18 @@ namespace ZtbSoft.DAL
             if(expertInfo.State != null)
                 strSet+="State = @State," ;
                     
+            if(expertInfo.Title != null)
+                strSet+="Title = @Title," ;
+                    
+            if(expertInfo.UnitName != null)
+                strSet+="UnitName = @UnitName," ;
+                    
+            if(expertInfo.Birthday != null)
+                strSet+="Birthday = @Birthday," ;
+                    
+            if(expertInfo.Duties != null)
+                strSet+="Duties = @Duties," ;
+                    
             strSet = strSet.TrimEnd(',');
                
             sql=sql+ strSet+" WHERE ExpertId = @ExpertId";
@@ -135,6 +167,10 @@ namespace ZtbSoft.DAL
 					,new SqlParameter("@Phone", ToDBValue(expertInfo.Phone))
 					,new SqlParameter("@Address", ToDBValue(expertInfo.Address))
 					,new SqlParameter("@State", ToDBValue(expertInfo.State))
+					,new SqlParameter("@Title", ToDBValue(expertInfo.Title))
+					,new SqlParameter("@UnitName", ToDBValue(expertInfo.UnitName))
+					,new SqlParameter("@Birthday", ToDBValue(expertInfo.Birthday))
+					,new SqlParameter("@Duties", ToDBValue(expertInfo.Duties))
 			};
 
 			return SqlHelper.ExecuteNonQuery(sql, para);

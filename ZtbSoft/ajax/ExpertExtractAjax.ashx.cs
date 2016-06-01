@@ -7,6 +7,7 @@ using System.Web.SessionState;
 using ZtbSoft.Components;
 using ZtbSoft.BLL;
 using ZtbSoft.Models;
+using ZTB.Special.BLL;
 
 namespace ZtbSoft.Web.Ajax
 {
@@ -105,6 +106,14 @@ if (!string.IsNullOrWhiteSpace(TradeCode))
             String json = JsonHelper.Encode(result);
             context.Response.ContentType = "text/plain";
             context.Response.Write(json);
+        }
+
+        public void GetProjectInfo(HttpContext context)
+        {
+            string pid = context.Request["pid"];
+            Hashtable result = new Hashtable();
+            result["data"] = new SProjectInfoBLL().GetZJCQProjectInfoByProjectId(pid);
+            result["total"] = new SessionCommon().GetEmployeeName(context);
         }
         public void Save(HttpContext context)
         {

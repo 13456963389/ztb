@@ -59,7 +59,7 @@ namespace ZtbSoft.BLL
         /// <returns></returns>
         public ArrayList GetAll(string whe)
         {
-            DataTable dt = new WorkFlowTempDAL().GetAll("*", whe, "NodeCode ASC");
+            DataTable dt = new WorkFlowTempDAL().GetAll("*", whe, "");
             return JsonHelper.DataTableToArrayList(dt);
         }
 		

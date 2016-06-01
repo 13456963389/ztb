@@ -72,6 +72,11 @@ namespace ZtbSoft.Models
         [DataMember(IsRequired = false)]
 		public int? EmployeeId{get;set;}
         /// <summary>
+        /// 只读页面地址
+        /// </summary>
+        [DataMember(IsRequired = false)]
+		public string NodeShowUrl{get;set;}
+        /// <summary>
         /// 工作流
         /// </summary>
         public WorkFlowTemp() { }
@@ -125,6 +130,10 @@ namespace ZtbSoft.Models
             if (dr.Table.Columns.Contains("EmployeeId") && !dr.IsNull("EmployeeId"))
             {
                 EmployeeId = Convert.ToInt32(dr["EmployeeId"]);
+            }
+            if (dr.Table.Columns.Contains("NodeShowUrl") && !dr.IsNull("NodeShowUrl"))
+            {
+                NodeShowUrl = dr["NodeShowUrl"].ToString();
             }
         }
 	}

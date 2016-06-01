@@ -87,6 +87,11 @@ namespace ZtbSoft.Models
         [DataMember(IsRequired = false)]
 		public DateTime? CreateTime{get;set;}
         /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(IsRequired = false)]
+		public int? TendereeType{get;set;}
+        /// <summary>
         /// 项目基本信息
         /// </summary>
         public ProjectInfo() { }
@@ -152,6 +157,10 @@ namespace ZtbSoft.Models
             if (dr.Table.Columns.Contains("CreateTime") && !dr.IsNull("CreateTime"))
             {
                 CreateTime = Convert.ToDateTime(dr["CreateTime"]);
+            }
+            if (dr.Table.Columns.Contains("TendereeType") && !dr.IsNull("TendereeType"))
+            {
+                TendereeType = Convert.ToInt32(dr["TendereeType"]);
             }
         }
 	}

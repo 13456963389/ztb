@@ -52,6 +52,26 @@ namespace ZtbSoft.Models
         [DataMember(IsRequired = false)]
 		public int State{get;set;}
         /// <summary>
+        /// 职称
+        /// </summary>
+        [DataMember(IsRequired = false)]
+		public string Title{get;set;}
+        /// <summary>
+        /// 工作单位
+        /// </summary>
+        [DataMember(IsRequired = false)]
+		public string UnitName{get;set;}
+        /// <summary>
+        /// 出生日期
+        /// </summary>
+        [DataMember(IsRequired = false)]
+		public DateTime? Birthday{get;set;}
+        /// <summary>
+        /// 职务
+        /// </summary>
+        [DataMember(IsRequired = false)]
+		public string Duties{get;set;}
+        /// <summary>
         /// 评标专家信息
         /// </summary>
         public ExpertInfo() { }
@@ -89,6 +109,22 @@ namespace ZtbSoft.Models
             if (dr.Table.Columns.Contains("State") && !dr.IsNull("State"))
             {
                 State = Convert.ToInt32(dr["State"]);
+            }
+            if (dr.Table.Columns.Contains("Title") && !dr.IsNull("Title"))
+            {
+                Title = dr["Title"].ToString();
+            }
+            if (dr.Table.Columns.Contains("UnitName") && !dr.IsNull("UnitName"))
+            {
+                UnitName = dr["UnitName"].ToString();
+            }
+            if (dr.Table.Columns.Contains("Birthday") && !dr.IsNull("Birthday"))
+            {
+                Birthday = Convert.ToDateTime(dr["Birthday"]);
+            }
+            if (dr.Table.Columns.Contains("Duties") && !dr.IsNull("Duties"))
+            {
+                Duties = dr["Duties"].ToString();
             }
         }
 	}

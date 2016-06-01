@@ -33,6 +33,7 @@ namespace ZtbSoft.DAL
 					new SqlParameter("@ProjectId", ToDBValue(workFlow.ProjectId)),
 					new SqlParameter("@EmployeeId", ToDBValue(workFlow.EmployeeId)),
 					new SqlParameter("@DoTime", ToDBValue(workFlow.DoTime)),
+					new SqlParameter("@NodeShowUrl", ToDBValue(workFlow.NodeShowUrl)),
 				};
              
 			 return Convert.ToInt32(SqlHelper.ExecuteScalar(CommandType.StoredProcedure, "UP_WorkFlow_INSERT", paras));
@@ -54,7 +55,8 @@ namespace ZtbSoft.DAL
 						TemplateId,
 						ProjectId,
 						EmployeeId,
-						DoTime
+						DoTime,
+						NodeShowUrl
 						) VALUES (
 						@NodeId,
 						@NodeCode,
@@ -68,7 +70,8 @@ namespace ZtbSoft.DAL
 						@TemplateId,
 						@ProjectId,
 						@EmployeeId,
-						@DoTime
+						@DoTime,
+						@NodeShowUrl
 						) select SCOPE_IDENTITY()";
 			SqlParameter[] para = new SqlParameter[]
 				{
@@ -85,6 +88,7 @@ namespace ZtbSoft.DAL
 					new SqlParameter("@ProjectId", ToDBValue(workFlow.ProjectId)),
 					new SqlParameter("@EmployeeId", ToDBValue(workFlow.EmployeeId)),
 					new SqlParameter("@DoTime", ToDBValue(workFlow.DoTime)),
+					new SqlParameter("@NodeShowUrl", ToDBValue(workFlow.NodeShowUrl)),
 				};
 				
 			int newId = Convert.ToInt32(SqlHelper.ExecuteScalar(sql, para));
@@ -126,6 +130,7 @@ namespace ZtbSoft.DAL
 					,new SqlParameter("@ProjectId", ToDBValue(workFlow.ProjectId))
 					,new SqlParameter("@EmployeeId", ToDBValue(workFlow.EmployeeId))
 					,new SqlParameter("@DoTime", ToDBValue(workFlow.DoTime))
+					,new SqlParameter("@NodeShowUrl", ToDBValue(workFlow.NodeShowUrl))
 			};
 
 			  return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, "UP_WorkFlow_UPDATE", paras);
@@ -177,6 +182,9 @@ namespace ZtbSoft.DAL
             if(workFlow.DoTime != null)
                 strSet+="DoTime = @DoTime," ;
                     
+            if(workFlow.NodeShowUrl != null)
+                strSet+="NodeShowUrl = @NodeShowUrl," ;
+                    
             strSet = strSet.TrimEnd(',');
                
             sql=sql+ strSet+" WHERE CaseId = @CaseId";
@@ -198,6 +206,7 @@ namespace ZtbSoft.DAL
 					,new SqlParameter("@ProjectId", ToDBValue(workFlow.ProjectId))
 					,new SqlParameter("@EmployeeId", ToDBValue(workFlow.EmployeeId))
 					,new SqlParameter("@DoTime", ToDBValue(workFlow.DoTime))
+					,new SqlParameter("@NodeShowUrl", ToDBValue(workFlow.NodeShowUrl))
 			};
 
 			return SqlHelper.ExecuteNonQuery(sql, para);

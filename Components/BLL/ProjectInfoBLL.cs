@@ -14,11 +14,9 @@ namespace ZtbSoft.BLL
         /// <summary>
         /// 新增
         /// </summary>
-        public int Insert(string json,int employeeId)
+        public int Insert(string json)
         {
             ProjectInfo projectInfo = JsonHelper.JsonToObject<ProjectInfo>(json);
-            projectInfo.CreateTime = DateTime.Now;
-            projectInfo.EmployeeId = employeeId;
             return new ProjectInfoDAL().INSERT(projectInfo);
         }
         

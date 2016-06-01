@@ -1,4 +1,5 @@
-﻿using ZTB.Special.DAL;
+﻿using System.Data;
+using ZTB.Special.DAL;
 
 namespace ZTB.Special.BLL
 {
@@ -12,6 +13,16 @@ namespace ZTB.Special.BLL
         public string GetSearchProjectIdsByProjectName(string selProjectName)
         {
             return new SProjectInfoDAL().GetSearchProjectIdsByProjectName(selProjectName);
+        }
+
+        /// <summary>
+        /// 专家抽取页面项目基本信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public DataTable GetZJCQProjectInfoByProjectId(string projectId)
+        {
+            return new SProjectInfoDAL().GetZJCQProjectInfoByProjectId(projectId);
         }
     }
 }

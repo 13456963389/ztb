@@ -30,6 +30,7 @@ namespace ZtbSoft.DAL
 					new SqlParameter("@NodeType", ToDBValue(workFlowTemp.NodeType)),
 					new SqlParameter("@TemplateId", ToDBValue(workFlowTemp.TemplateId)),
 					new SqlParameter("@EmployeeId", ToDBValue(workFlowTemp.EmployeeId)),
+					new SqlParameter("@NodeShowUrl", ToDBValue(workFlowTemp.NodeShowUrl)),
 				};
              
 			 return Convert.ToInt32(SqlHelper.ExecuteScalar(CommandType.StoredProcedure, "UP_WorkFlowTemp_INSERT", paras));
@@ -48,7 +49,8 @@ namespace ZtbSoft.DAL
 						NodeStatu,
 						NodeType,
 						TemplateId,
-						EmployeeId
+						EmployeeId,
+						NodeShowUrl
 						) VALUES (
 						@NodeCode,
 						@NodeName,
@@ -59,7 +61,8 @@ namespace ZtbSoft.DAL
 						@NodeStatu,
 						@NodeType,
 						@TemplateId,
-						@EmployeeId
+						@EmployeeId,
+						@NodeShowUrl
 						) select SCOPE_IDENTITY()";
 			SqlParameter[] para = new SqlParameter[]
 				{
@@ -73,6 +76,7 @@ namespace ZtbSoft.DAL
 					new SqlParameter("@NodeType", ToDBValue(workFlowTemp.NodeType)),
 					new SqlParameter("@TemplateId", ToDBValue(workFlowTemp.TemplateId)),
 					new SqlParameter("@EmployeeId", ToDBValue(workFlowTemp.EmployeeId)),
+					new SqlParameter("@NodeShowUrl", ToDBValue(workFlowTemp.NodeShowUrl)),
 				};
 				
 			int newId = Convert.ToInt32(SqlHelper.ExecuteScalar(sql, para));
@@ -111,6 +115,7 @@ namespace ZtbSoft.DAL
 					,new SqlParameter("@NodeType", ToDBValue(workFlowTemp.NodeType))
 					,new SqlParameter("@TemplateId", ToDBValue(workFlowTemp.TemplateId))
 					,new SqlParameter("@EmployeeId", ToDBValue(workFlowTemp.EmployeeId))
+					,new SqlParameter("@NodeShowUrl", ToDBValue(workFlowTemp.NodeShowUrl))
 			};
 
 			  return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, "UP_WorkFlowTemp_UPDATE", paras);
@@ -153,6 +158,9 @@ namespace ZtbSoft.DAL
             if(workFlowTemp.EmployeeId != null)
                 strSet+="EmployeeId = @EmployeeId," ;
                     
+            if(workFlowTemp.NodeShowUrl != null)
+                strSet+="NodeShowUrl = @NodeShowUrl," ;
+                    
             strSet = strSet.TrimEnd(',');
                
             sql=sql+ strSet+" WHERE NodeId = @NodeId";
@@ -171,6 +179,7 @@ namespace ZtbSoft.DAL
 					,new SqlParameter("@NodeType", ToDBValue(workFlowTemp.NodeType))
 					,new SqlParameter("@TemplateId", ToDBValue(workFlowTemp.TemplateId))
 					,new SqlParameter("@EmployeeId", ToDBValue(workFlowTemp.EmployeeId))
+					,new SqlParameter("@NodeShowUrl", ToDBValue(workFlowTemp.NodeShowUrl))
 			};
 
 			return SqlHelper.ExecuteNonQuery(sql, para);

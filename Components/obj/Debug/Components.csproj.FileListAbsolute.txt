@@ -13,3 +13,4 @@ F:\ZTB\ZtbSoft\ztb\Components\bin\Debug\mysql.data.dll
 F:\ZTB\ZtbSoft\ztb\Components\bin\Debug\Newtonsoft.Json.Net20.dll
 F:\ZTB\ZtbSoft\ztb\Components\obj\Debug\Components.dll
 F:\ZTB\ZtbSoft\ztb\Components\obj\Debug\Components.pdb
+F:\ZTB\ZtbSoft\ztb\Components\obj\Debug\Components.csprojResolveAssemblyReference.cache

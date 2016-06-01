@@ -56,8 +56,10 @@
                     <td><input name="AgencyId" class="mini-combobox" textField="UnitName" valueField="UnitId" emptyText="请选择..." url="/ajax/drop/UnitInfoDrop.ashx?method=GetListByUnitType&unType=1" required="true" /></td>
                 </tr>
                 <tr>
+                    <td width="80">招标方式</td>
+                    <td><input name="TendereeType" class="mini-combobox" textField="Name" valueField="Id" emptyText="请选择..." url="/ajax/drop/DictDrop.ashx?method=GetList&dCode=ZBFS" required="true" /></td>
                     <td width="80">其他说明</td>
-                    <td colspan="5"><input name="Remark" class="mini-textarea" /></td>
+                    <td colspan="3"><input name="Remark" class="mini-textarea" /></td>
                 </tr>
             </table>
         </div>

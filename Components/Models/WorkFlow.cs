@@ -87,6 +87,11 @@ namespace ZtbSoft.Models
         [DataMember(IsRequired = false)]
 		public DateTime? DoTime{get;set;}
         /// <summary>
+        /// 只读界面
+        /// </summary>
+        [DataMember(IsRequired = false)]
+		public string NodeShowUrl{get;set;}
+        /// <summary>
         /// 工作流
         /// </summary>
         public WorkFlow() { }
@@ -152,6 +157,10 @@ namespace ZtbSoft.Models
             if (dr.Table.Columns.Contains("DoTime") && !dr.IsNull("DoTime"))
             {
                 DoTime = Convert.ToDateTime(dr["DoTime"]);
+            }
+            if (dr.Table.Columns.Contains("NodeShowUrl") && !dr.IsNull("NodeShowUrl"))
+            {
+                NodeShowUrl = dr["NodeShowUrl"].ToString();
             }
         }
 	}

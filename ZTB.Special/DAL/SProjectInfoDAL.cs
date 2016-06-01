@@ -1,4 +1,6 @@
-﻿using ZtbSoft.DAL;
+﻿using System.Data;
+using ZtbSoft;
+using ZtbSoft.DAL;
 
 namespace ZTB.Special.DAL
 {
@@ -19,6 +21,24 @@ namespace ZTB.Special.DAL
             }
             str = str.Length > 0 ? str.Substring(1) : str;
             return str;
+        }
+
+        /// <summary>
+        /// 专家抽取页面项目基本信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public DataTable GetZJCQProjectInfoByProjectId(string projectId)
+        {
+            string sql = @"
+SELECT ProjectId,ProjectCode,ProjectName,b.UnitName,c.DictName ,d.DictName AS TradeCode
+FROM dbo.ProjectInfo a
+	LEFT JOIN dbo.UnitInfo b ON b.UnitId=a.TendereeId
+	LEFT JOIN dbo.Dict c ON c.DictId=a.TendereeType
+	LEFT JOIN dbo.Dict d ON d.DictId=a.TradeCode
+WHERE ProjectId=
+" + projectId;
+            return SqlHelper.ExecuteDataTable(sql);
         }
     }
 }

@@ -33,7 +33,7 @@
             <table class="detailTb">
                 <tr>
                     <td width="80">项目名称</td>
-                    <td><input name="ProjectId" class="mini-combobox" textField="ProjectName" valueField="ProjectId" emptyText="请选择..." url="/ajax/drop/ProjectInfoDrop.ashx?method=GetList" required="true" /></td>
+                    <td><input name="ProjectId" class="mini-textbox" readonly="readonly" /></td>
                     <td width="80">招标人</td>
                     <td><input name="TendereeName" class="mini-textbox" readonly="readonly" /></td>
                     <td width="80">抽取时间</td>
@@ -43,9 +43,9 @@
                     <td width="80">项目编号</td>
                     <td><input name="ProjectCode" class="mini-textbox" readonly="readonly" /></td>
                     <td width="80">招标方式</td>
-                    <td><input name="TendereeType" class="mini-textbox" /></td>
+                    <td><input name="TendereeType" class="mini-textbox" readonly="readonly" /></td>
                     <td width="80">拟抽取人数</td>
-                    <td><input name="NUserCount" class="mini-textbox" /></td>
+                    <td><input name="NUserCount" class="mini-textbox"  required="true"/></td>
                 </tr>
                 <tr>
                     <td width="80">项目类型</td>
@@ -53,13 +53,13 @@
                         <input name="ProjectType" class="mini-combobox" textField="Name" valueField="Id" emptyText="请选择..." url="/ajax/drop/DictDrop.ashx?method=GetList&dCode=XMLX" required="true" readonly="readonly" />
                     </td>
                     <td width="80">开标日期</td>
-                    <td><input name="eCount" class="mini-datepicker" allowinput="false" /></td>
+                    <td><input name="eCount" class="mini-datepicker" allowinput="false" readonly="readonly" /></td>
                     <td width="80">备选人数</td>
-                    <td><input name="BUserCount" class="mini-textbox" /></td>
+                    <td><input name="BUserCount" class="mini-textbox" required="true" /></td>
                 </tr>
                 <tr>
                     <td width="80">抽取人</td>
-                    <td><input name="EmployeeName" class="mini-textbox" /></td>
+                    <td><input name="EmployeeName" class="mini-textbox" readonly="readonly" /></td>
                 </tr>
             </table>
         </div>
@@ -99,6 +99,10 @@
     <script type="text/javascript">
         mini.parse();//MiniUi初始化
         var form = new mini.Form("frmExpertExtract"); //获取整个form1表单
+        function BindData(data)
+        {
+
+        }
         function SetData(data) {
             if (data.action == "edit" || data.action == "detail") { //判断action操作
                 $.ajax({

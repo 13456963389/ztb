@@ -148,8 +148,9 @@ namespace ZtbSoft.Web.Ajax
                     }
 
                     row["ProjectId"] = -1;
+                    row["EmployeeId"] = new SessionCommon().GetEmployeeId(context);
                     row["CheckStatu"] = Convert.ToInt32(enum_ProjectStata.BZZ);
-                    count += new ProjectInfoBLL().Insert(JsonHelper.Encode(row), new SessionCommon().GetEmployeeId(context));
+                    count += new ProjectInfoBLL().Insert(JsonHelper.Encode(row));
                     new SSectionInfoBLL().AddSectionListForProjectInfoId(secJson, count, new SessionCommon().GetEmployeeId(context));
                 }
                 else if (state == "removed" || state == "deleted")  //删除
