@@ -1378,6 +1378,8 @@
     <Content Include="kindeditor\kindeditor-all-min.js" />
     <Content Include="kindeditor\kindeditor-all.js" />
     <Content Include="login.html" />
+    <Content Include="NoticeTemplate\detail.html" />
+    <Content Include="NoticeTemplate\list.html" />
     <Content Include="Notice\detail.html" />
     <Content Include="Notice\list.html" />
     <Content Include="Notice\search.html" />
@@ -1456,6 +1458,9 @@
   <ItemGroup>
     <Compile Include="ajax\drop\ExpertInfoDrop.ashx.cs">
       <DependentUpon>ExpertInfoDrop.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ajax\NoticeTemplateAjax.ashx.cs">
+      <DependentUpon>NoticeTemplateAjax.ashx</DependentUpon>
     </Compile>
     <Compile Include="CostManagement\ajax\TBBZJCostAjax.ashx.cs">
       <DependentUpon>TBBZJCostAjax.ashx</DependentUpon>
@@ -1745,6 +1750,7 @@
     <Content Include="ProjectInfo\ajax\YzbgsAjax.ashx" />
     <Content Include="ProjectInfo\ajax\ZbtzsAjax.ashx" />
     <Content Include="ProjectInfo\ajax\ZbhtAjax.ashx" />
+    <Content Include="ajax\NoticeTemplateAjax.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -625,5 +625,6 @@ namespace ZtbSoft.Components
         CostManagementTBBZJ,
         CostManagementZBWJ,
         CostManagementZJ,
+        NoticeTemplate,
     }
 }

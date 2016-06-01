@@ -73,7 +73,7 @@ namespace ZtbSoft.Web.Ajax
             int count = 0;
 
             string sel_col = "*";
-            string sel_whe = "";
+            string sel_whe = "TemplateType ='1'";
             string ord = "";
 
             if (!String.IsNullOrWhiteSpace(sortField))
@@ -81,11 +81,6 @@ namespace ZtbSoft.Web.Ajax
                 if (sortOrder != "desc") sortOrder = "asc";
                 ord += " " + sortField + " " + sortOrder;
             }
-			//查询条件
-			
-			
-			if (!string.IsNullOrWhiteSpace(sel_whe))
-                sel_whe = sel_whe.Substring(4);
 
 			Hashtable result = new Hashtable();
 			

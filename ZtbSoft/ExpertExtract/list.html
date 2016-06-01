@@ -25,9 +25,9 @@
                         <a class="mini-button" iconcls="icon-edit" onclick="edit()">补抽</a>
                     </td>
                     <td style="white-space:nowrap;">
-                        <input id="ProjectId" class="mini-textbox" emptyText="请输入项目ID" style="width:150px;" onenter="onKeyEnter" />
+                        <input id="ProjectName" class="mini-textbox" emptyText="请输入项目名称" style="width:150px;" onenter="onKeyEnter" />
                         <a class="mini-button" onclick="search()">查询</a>
-                        <a class="mini-button" onclick="chshow()">+</a>
+                        <!--<a class="mini-button" onclick="chshow()">+</a>-->
                     </td>
                 </tr>
             </table>
@@ -62,8 +62,8 @@
             mini.open({//打开新页面
                 url: "/ExpertExtract/detail.html",//页面地址
                 title: "新增",//标题
-                width: 600,//宽度
-                height: 360,//高度
+                width: 1000,//宽度
+                height: 560,//高度
                 onload: function () {//加载
                     var data = { action: "add" };//传过去的值
                 },
@@ -81,8 +81,8 @@
                 mini.open({//打开新页面
                     url: "/ExpertExtract/detail.html",//页面地址
                     title: "编辑",//标题
-                    width: 600,//宽度
-                    height: 360,//高度
+                    width: 1000,//宽度
+                    height: 560,//高度
                     onload: function () {//加载
                         var iframe = this.getIFrameEl();//获取新页面
                         var data = { action: "edit", id: row.ExtractId };//传过去的值
@@ -106,8 +106,8 @@
                 mini.open({//打开新页面
                     url: "/ExpertExtract/detail.html",//页面地址
                     title: "详细",//标题
-                    width: 600,//宽度
-                    height: 360,//高度
+                    width: 1000,//宽度
+                    height: 560,//高度
                     onload: function () {//加载
                         var iframe = this.getIFrameEl();//获取新页面
                         var data = { action: "detail", id: row.ExtractId };//传过去的值
@@ -153,8 +153,8 @@
             }
         }
         function search() {
-            var key = mini.get("ProjectId").getValue();
-            grid.load({ ProjectId: key });
+            var key = mini.get("ProjectName").getValue();
+            grid.load({ ProjectName: key });
         }
         function onKeyEnter(e) {
             search();

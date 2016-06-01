@@ -35,7 +35,7 @@ namespace ZtbSoft.Models
         /// 模版类型
         /// </summary>
         [DataMember(IsRequired = false)]
-		public int TemplateType{get;set;}
+		public string TemplateType{get;set;}
         /// <summary>
         /// 备注
         /// </summary>
@@ -71,7 +71,7 @@ namespace ZtbSoft.Models
             }
             if (dr.Table.Columns.Contains("TemplateType") && !dr.IsNull("TemplateType"))
             {
-                TemplateType = Convert.ToInt32(dr["TemplateType"]);
+                TemplateType = dr["TemplateType"].ToString();
             }
             if (dr.Table.Columns.Contains("Remark") && !dr.IsNull("Remark"))
             {

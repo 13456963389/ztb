@@ -11,3 +11,16 @@ F:\ZTB\ZtbSoft\ZtbSoft\bin\ZTB.Special.pdb
 F:\ZTB\ZtbSoft\ZtbSoft\obj\Debug\ZtbSoft.Web.csprojResolveAssemblyReference.cache
 F:\ZTB\ZtbSoft\ZtbSoft\obj\Debug\ZtbSoft.dll
 F:\ZTB\ZtbSoft\ZtbSoft\obj\Debug\ZtbSoft.pdb
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\bin\ZtbSoft.dll.config
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\bin\ZtbSoft.dll
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\bin\ZtbSoft.pdb
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\bin\Components.dll
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\bin\ZTB.Special.dll
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\bin\MySql.Data.dll
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\bin\Newtonsoft.Json.Net20.dll
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\bin\log4net.dll
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\bin\Components.pdb
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\bin\ZTB.Special.pdb
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\obj\Debug\ZtbSoft.Web.csprojResolveAssemblyReference.cache
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\obj\Debug\ZtbSoft.dll
+F:\ZTB\ZtbSoft\ztb\ZtbSoft\obj\Debug\ZtbSoft.pdb

@@ -220,7 +220,7 @@ namespace ZtbSoft.DAL
         /// <returns></returns>
         public DataTable GetDictDrop(string dictCode)
         {
-            string sql = "select DictId as Id,DictName as Name from Dict where Pid=(SELECT DictId FROM dbo.Dict WHERE DictCode='" + dictCode + "')";
+            string sql = "select DictId as Id,DictName as Name,DictCode from Dict where Pid=(SELECT DictId FROM dbo.Dict WHERE DictCode='" + dictCode + "')";
             return SqlHelper.ExecuteDataTable(sql);
         }
 

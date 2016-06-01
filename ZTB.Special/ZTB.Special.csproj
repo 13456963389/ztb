@@ -54,10 +54,12 @@
     <Compile Include="BLL\SNoticeInfoBLL.cs" />
     <Compile Include="BLL\SProjectInfoBLL.cs" />
     <Compile Include="BLL\SSectionInfoBLL.cs" />
+    <Compile Include="BLL\SSNoticeTemplateBLL.cs" />
     <Compile Include="DAL\MenuTreeDAL.cs" />
     <Compile Include="DAL\SFileInfoDAL.cs" />
     <Compile Include="DAL\SFirstResultDAL.cs" />
     <Compile Include="DAL\SNoticeInfoDAL.cs" />
+    <Compile Include="DAL\SNoticeTemplateDAL.cs" />
     <Compile Include="DAL\SProjectInfoDAL.cs" />
     <Compile Include="DAL\SSectionInfoDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
