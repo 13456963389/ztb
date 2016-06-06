@@ -25,7 +25,7 @@ namespace Components.WorkFlowEngine
         /// <summary>
         /// 节点编号
         /// </summary>
-        public virtual int NodeCode { get; set; }
+        public virtual string NodeCode { get; set; }
 
         /// <summary>
         /// 流程结束

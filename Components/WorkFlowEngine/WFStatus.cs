@@ -39,23 +39,29 @@ namespace Components.WorkFlowEngine
 
     public enum NodeActionStatus
     {
+        [Description("未开始")]
+        UNSTART = 1,
+
+        [Description("初始化")]
+        INIT = 2,
+
         [Description("完成")]
-        OVER = 1,
+        OVER = 3,
 
         [Description("停止")]
-        STOP = 2,
+        STOP = 4,
 
         [Description("冻结/暂停")]
-        PAUSE = 3,
+        PAUSE = 5,
 
         [Description("进行中")]
-        DOING = 4,
+        DOING = 6,
 
         [Description("关闭")]
-        COLSED = 5,
+        COLSED = 7,
 
         [Description("解冻")]
-        Thaw = 6
+        Thaw = 8
     }
 
     [Flags]
