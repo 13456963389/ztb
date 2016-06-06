@@ -150,6 +150,13 @@
     <Compile Include="SqlHelper.cs" />
     <Compile Include="Trans_SQL.cs" />
     <Compile Include="WorkFlowCode\WorkFlowOperation.cs" />
+    <Compile Include="WorkFlowEngine\AnyInstaCycle\ActionState.cs" />
+    <Compile Include="WorkFlowEngine\AnyInstaCycle\ConnectionContext.cs" />
+    <Compile Include="WorkFlowEngine\Assembler.cs" />
+    <Compile Include="WorkFlowEngine\ContextBase.cs" />
+    <Compile Include="WorkFlowEngine\IContext.cs" />
+    <Compile Include="WorkFlowEngine\IState.cs" />
+    <Compile Include="WorkFlowEngine\WFStatus.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

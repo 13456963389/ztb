@@ -24,6 +24,7 @@ namespace Components.CommonHelper
         /// <returns>工作流ID（0、为失败）</returns>
         public int Create(int templateId, int businessId, int userId, out string msg)
         {
+
             msg = "创建流程失败！";
             return 0;
         }
@@ -36,7 +37,7 @@ namespace Components.CommonHelper
         /// <param name="userId">提交人ID</param>
         /// <param name="msg">消息</param>
         /// <returns></returns>
-        public bool Submit(int businessId, int nodeId, int userId, out string msg)
+        public bool Submit(int businessId, string nodeCode, int userId, out string msg)
         {
             bool bl = false;
             msg = "提交成功！";
@@ -51,7 +52,7 @@ namespace Components.CommonHelper
         /// <param name="userId">提交人ID</param>
         /// <param name="msg">消息</param>
         /// <returns></returns>
-        public bool Return(int businessId, int nodeId, int userId, out string msg)
+        public bool Return(int businessId, string nodeCode, int userId, out string msg)
         {
             bool bl = false;
             msg = "提交成功！";
@@ -103,7 +104,7 @@ namespace Components.CommonHelper
         /// <param name="businessId"></param>
         /// <param name="parentNodeId">父节点ID</param>
         /// <returns></returns>
-        public List<WorkFlow> GetWorkFlowInfo(int businessId,int parentNodeId)
+        public List<WorkFlow> GetWorkFlowInfo(int businessId,int parentNodeCode)
         {
             var list = new List<WorkFlow>();
             return list;

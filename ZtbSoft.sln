@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtbSoft.Web", "ZtbSoft\ZtbSoft.Web.csproj", "{ECC6048D-BF2E-4DB9-9DA4-7920EEEE5D85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components", "Components\Components.csproj", "{4EDCA216-B169-43F3-AD00-56962F554C7A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZTB.Special", "ZTB.Special\ZTB.Special.csproj", "{BD956628-8655-4FFF-A0E1-CF3E7114E888}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFTEST", "..\WF_TEST\WFTEST\WFTEST.csproj", "{07A3A7EF-21DE-4E3D-9FC2-FF8D16E5567F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{BD956628-8655-4FFF-A0E1-CF3E7114E888}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD956628-8655-4FFF-A0E1-CF3E7114E888}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD956628-8655-4FFF-A0E1-CF3E7114E888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07A3A7EF-21DE-4E3D-9FC2-FF8D16E5567F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07A3A7EF-21DE-4E3D-9FC2-FF8D16E5567F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07A3A7EF-21DE-4E3D-9FC2-FF8D16E5567F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07A3A7EF-21DE-4E3D-9FC2-FF8D16E5567F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
