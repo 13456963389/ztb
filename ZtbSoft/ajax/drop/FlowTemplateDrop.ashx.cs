@@ -61,7 +61,7 @@ namespace ZtbSoft.WEB.ajax.drop
 
         public void GetWorkFlowTempList(HttpContext context)
         {
-            ArrayList data = new FlowTemplateBLL().GetAll("TemplateType=1");
+            ArrayList data = new FlowTemplateBLL().GetAll("");
             String json = JsonHelper.Encode(data);
             context.Response.ContentType = "text/plain";
             context.Response.Write(json);

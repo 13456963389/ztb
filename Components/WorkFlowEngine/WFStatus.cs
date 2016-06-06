@@ -87,7 +87,10 @@ namespace Components.WorkFlowEngine
         PICK = 5,
 
         [Description("会签节点")]
-        SIGN = 6
+        SIGN = 6,
+
+        [Description("流程名称节点")]
+        NAMEDES = 7
     }
 
     public class OperateThisEnum

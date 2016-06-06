@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Components.WorkFlowEngine;
+using System;
 using System.Collections;
 using System.Data;
 using System.Reflection;
@@ -69,6 +70,17 @@ namespace ZtbSoft.ajax.drop
         public void Ranking(HttpContext context)
         {
             ArrayList data = new clsEnmu().GetEnumObj(typeof(enum_Ranking));
+            String json = JsonHelper.Encode(data);
+            context.Response.ContentType = "text/plain";
+            context.Response.Write(json);
+        }
+
+        /// <summary>
+        /// 获取节点类型
+        /// </summary>
+        public void GetWFNodeTypes(HttpContext context)
+        {
+            ArrayList data = new clsEnmu().GetEnumObj(typeof(NodeTypeStatus));
             String json = JsonHelper.Encode(data);
             context.Response.ContentType = "text/plain";
             context.Response.Write(json);
