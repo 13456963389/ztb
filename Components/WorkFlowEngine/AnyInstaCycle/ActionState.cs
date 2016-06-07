@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Components.WorkFlowEngine.AnyInstaCycle
 {
-    public class ActionState : IState
+    internal class ActionState : IState
     {
         public void End(IContext context)
         {
@@ -35,7 +35,7 @@ namespace Components.WorkFlowEngine.AnyInstaCycle
 
         public void Start(IContext context)
         {
-            
+
         }
 
         public void Stop(IContext context)

@@ -80,7 +80,9 @@
     <Compile Include="BLL\UnitInfoBLL.cs" />
     <Compile Include="BLL\UpdateLogBLL.cs" />
     <Compile Include="BLL\UserInfoBLL.cs" />
+    <Compile Include="BLL\WorkFlowBeDoneBLL.cs" />
     <Compile Include="BLL\WorkFlowBLL.cs" />
+    <Compile Include="BLL\WorkFlowOHistBLL.cs" />
     <Compile Include="BLL\WorkFlowTempBLL.cs" />
     <Compile Include="clsEnmu.cs" />
     <Compile Include="CommonHelper\CommonHelper.cs" />
@@ -110,7 +112,9 @@
     <Compile Include="DAL\UnitInfoDAL.cs" />
     <Compile Include="DAL\UpdateLogDAL.cs" />
     <Compile Include="DAL\UserInfoDAL.cs" />
+    <Compile Include="DAL\WorkFlowBeDoneDAL.cs" />
     <Compile Include="DAL\WorkFlowDAL.cs" />
+    <Compile Include="DAL\WorkFlowOHistDAL.cs" />
     <Compile Include="DAL\WorkFlowTempDAL.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="LogHelper.cs" />
@@ -141,6 +145,8 @@
     <Compile Include="Models\UpdateLog.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\WorkFlow.cs" />
+    <Compile Include="Models\WorkFlowBeDone.cs" />
+    <Compile Include="Models\WorkFlowOHist.cs" />
     <Compile Include="Models\WorkFlowTemp.cs" />
     <Compile Include="MySqlHelper.cs" />
     <Compile Include="PageDataHelper.cs" />

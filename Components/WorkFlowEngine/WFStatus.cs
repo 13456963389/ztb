@@ -15,8 +15,11 @@ namespace Components.WorkFlowEngine
         [Description("不同意")]
         DISAGREE = 2,
 
-        [Description("不同意")]
-        GIVEUP = 3
+        [Description("放弃")]
+        GIVEUP = 3,
+
+        [Description("待办")]
+        BEDONE = 4
     }
 
     public enum WFActiveStatus
