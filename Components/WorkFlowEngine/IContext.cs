@@ -1,30 +1,33 @@
-﻿using System;
+﻿using Components.WorkFlowEngine.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZtbSoft.Models;
 
 namespace Components.WorkFlowEngine
 {
     public interface IContext
     {
         IState State { get; set; }
-        int BusinessBillId { get; set; }
-        int TemplateId { get; set; }
-        string NodeCode { get; set; }
 
-        IContext Start();
+        RetInfo RetInfo { get; set; }
 
-        IContext End();
+        WorkFlow Wf { get; set; }
 
-        IContext Next();
+        IContext Start(WorkFlow wf);
 
-        IContext Prev();
+        IContext End(WorkFlow wf);
 
-        IContext Pause();
+        IContext Next(WorkFlow wf);
 
-        IContext Thaw();
+        IContext Prev(WorkFlow wf);
 
-        IContext Stop();
+        IContext Pause(WorkFlow wf);
+
+        IContext Thaw(WorkFlow wf);
+
+        IContext Stop(WorkFlow wf);
     }
 }

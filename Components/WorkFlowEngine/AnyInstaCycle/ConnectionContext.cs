@@ -11,13 +11,14 @@ using System.Threading.Tasks;
 
 namespace Components.WorkFlowEngine.AnyInstaCycle
 {
-    public class ConnectionContext : ContextBase
+    internal class ConnectionContext : ContextBase
     {
         public ConnectionContext()
         {
             State = (new Assembler()).Create<IState>();
+            RetInfo = (new Assembler()).Create<RetInfo>();
         }
-        
-        
+
+
     }
 }

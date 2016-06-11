@@ -152,24 +152,43 @@
     <Compile Include="PageDataHelper.cs" />
     <Compile Include="PowerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\WfErrorCode.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WfErrorCode.resx</DependentUpon>
+    </Compile>
     <Compile Include="SessionCommon.cs" />
     <Compile Include="SqlHelper.cs" />
     <Compile Include="Trans_SQL.cs" />
-    <Compile Include="WorkFlowCode\WorkFlowOperation.cs" />
     <Compile Include="WorkFlowEngine\AnyInstaCycle\ActionState.cs" />
     <Compile Include="WorkFlowEngine\AnyInstaCycle\ConnectionContext.cs" />
     <Compile Include="WorkFlowEngine\Assembler.cs" />
     <Compile Include="WorkFlowEngine\ContextBase.cs" />
+    <Compile Include="WorkFlowEngine\DBDAL\WF_WorkFlowDAL.cs" />
     <Compile Include="WorkFlowEngine\IContext.cs" />
+    <Compile Include="WorkFlowEngine\Persistent\AssemblStore.cs" />
+    <Compile Include="WorkFlowEngine\Persistent\ReadStore.cs" />
+    <Compile Include="WorkFlowEngine\Persistent\RealSpecific\CheckFieldForWorkFlow.cs" />
+    <Compile Include="WorkFlowEngine\Persistent\CheckField.cs" />
+    <Compile Include="WorkFlowEngine\RetInfo.cs" />
     <Compile Include="WorkFlowEngine\IState.cs" />
+    <Compile Include="WorkFlowEngine\Model\RetInfoEntity.cs" />
+    <Compile Include="WorkFlowEngine\Persistent\PersistentStore.cs" />
+    <Compile Include="WorkFlowEngine\WfEngine.cs" />
     <Compile Include="WorkFlowEngine\WFStatus.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\WfErrorCode.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WfErrorCode.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="DLL\log4net.dll" />
     <Content Include="DLL\mysql.data.dll" />
     <Content Include="DLL\Newtonsoft.Json.Net20.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

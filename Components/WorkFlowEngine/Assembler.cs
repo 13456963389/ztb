@@ -4,11 +4,11 @@
 ////////////////////
 #endregion
 using Components.WorkFlowEngine.AnyInstaCycle;
+using Components.WorkFlowEngine.Model;
+using Components.WorkFlowEngine.Persistent;
+using Components.WorkFlowEngine.Persistent.RealSpecific;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Components.WorkFlowEngine
 {
@@ -20,6 +20,8 @@ namespace Components.WorkFlowEngine
         {
             dictionary.Add(typeof(IContext), typeof(ConnectionContext));
             dictionary.Add(typeof(IState), typeof(ActionState));
+            dictionary.Add(typeof(CheckField), typeof(CheckFieldForWorkFlow));
+            dictionary.Add(typeof(RetInfo), typeof(RetInfoEntity));
         }
 
         public object Create(Type type)

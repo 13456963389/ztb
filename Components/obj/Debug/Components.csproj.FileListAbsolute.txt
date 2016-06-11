@@ -22,3 +22,5 @@ C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\bin\Debug\Newtonsoft.Json.Net20
 C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\obj\Debug\Components.dll
 C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\obj\Debug\Components.pdb
 C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\obj\Debug\Components.csprojResolveAssemblyReference.cache
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\obj\Debug\Components.Properties.WfErrorCode.resources
+C:\Users\ZhouZe\Desktop\ProForAny\ztb\Components\obj\Debug\Components.csproj.GenerateResource.Cache

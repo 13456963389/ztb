@@ -8,11 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZtbSoft.Models;
-using Components.WorkFlowCode;
+using Components.WorkFlowEngine;
+using Components.Properties;
+using ZtbSoft.Components;
 
 namespace Components.CommonHelper
 {
-    public class WorkFlowHelper : WorkFlowOperation
+    public class WorkFlowHelper : WfEngine
     {
         /// <summary>
         /// 创建流程
@@ -24,9 +26,14 @@ namespace Components.CommonHelper
         /// <returns>工作流ID（0、为失败）</returns>
         public int Create(int templateId, int businessId, int userId, out string msg)
         {
-
-            msg = "创建流程失败！";
-            return 0;
+            RetInfo retInfo = Create(new WorkFlow
+            {
+                TemplateId = templateId,
+                BusinessId = businessId,
+                EmployeeId = userId
+            });
+            msg = string.Format("创建流程:{0}", retInfo.Msg);
+            return retInfo.RetInt;
         }
 
         /// <summary>
@@ -104,7 +111,7 @@ namespace Components.CommonHelper
         /// <param name="businessId"></param>
         /// <param name="parentNodeId">父节点ID</param>
         /// <returns></returns>
-        public List<WorkFlow> GetWorkFlowInfo(int businessId,int parentNodeCode)
+        public List<WorkFlow> GetWorkFlowInfo(int businessId, int parentNodeCode)
         {
             var list = new List<WorkFlow>();
             return list;

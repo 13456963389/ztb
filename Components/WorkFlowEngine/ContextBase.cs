@@ -8,65 +8,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Components.WorkFlowEngine.Model;
+using ZtbSoft.Models;
 
 namespace Components.WorkFlowEngine
 {
     public abstract class ContextBase : IContext
     {
+        public RetInfo RetInfo { get; set; }
+
         public virtual IState State { get; set; }
-        /// <summary>
-        /// 业务id
-        /// </summary>
-        public virtual int BusinessBillId { get; set; }
-        /// <summary>
-        /// 流程id
-        /// </summary>
-        public virtual int TemplateId { get; set; }
-        /// <summary>
-        /// 节点编号
-        /// </summary>
-        public virtual string NodeCode { get; set; }
+
+        public virtual WorkFlow Wf { get; set; }
 
         /// <summary>
-        /// 流程结束
+        /// 流程结束,自动结束所有流程，默认填入
         /// </summary>
         /// <returns></returns>
-        public IContext End() { State.End(this); return this; }
+        public IContext End(WorkFlow wf) { Wf = wf; State.End(this); return this; }
 
         /// <summary>
         /// 下一步
         /// </summary>
         /// <returns></returns>
-        public IContext Next() { State.Next(this); return this; }
+        public IContext Next(WorkFlow wf) { Wf = wf; State.Next(this); return this; }
 
         /// <summary>
         /// 流程暂停/冻结
         /// </summary>
         /// <returns></returns>
-        public IContext Pause() { State.Pause(this); return this; }
+        public IContext Pause(WorkFlow wf) { Wf = wf; State.Pause(this); return this; }
 
         /// <summary>
         /// 上一步
         /// </summary>
         /// <returns></returns>
-        public IContext Prev() { State.Prev(this); return this; }
+        public IContext Prev(WorkFlow wf) { Wf = wf; State.Prev(this); return this; }
 
         /// <summary>
         /// 流程开始
         /// </summary>
         /// <returns></returns>
-        public IContext Start() { State.Start(this); return this; }
+        public IContext Start(WorkFlow wf) { Wf = wf; State.Start(this); return this; }
 
         /// <summary>
-        /// 流程终止
+        /// 流程终止，结束所在流程，但剩余流程不再补齐
         /// </summary>
         /// <returns></returns>
-        public IContext Stop() { State.Stop(this); return this; }
+        public IContext Stop(WorkFlow wf) { Wf = wf; State.Stop(this); return this; }
 
         /// <summary>
         /// 流程解冻
         /// </summary>
         /// <returns></returns>
-        public IContext Thaw() { State.Thaw(this); return this; }
+        public IContext Thaw(WorkFlow wf) { Wf = wf; State.Thaw(this); return this; }
     }
 }

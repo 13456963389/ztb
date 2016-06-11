@@ -73,25 +73,45 @@ namespace Components.WorkFlowEngine
     [Flags]
     public enum NodeTypeStatus
     {
-
+        /// <summary>
+        /// 开始节点
+        /// </summary>
         [Description("开始节点")]
         START = 1,
 
+        /// <summary>
+        /// 结束节点
+        /// </summary>
         [Description("结束节点")]
         END = 2,
 
+        /// <summary>
+        /// 交互节点
+        /// </summary>
         [Description("交互节点")]
         Action = 3,
 
+        /// <summary>
+        /// 虚节点
+        /// </summary>
         [Description("虚节点")]
         VIRTUAL = 4,
 
+        /// <summary>
+        /// 选签节点
+        /// </summary>
         [Description("选签节点")]
         PICK = 5,
 
+        /// <summary>
+        /// 会签节点
+        /// </summary>
         [Description("会签节点")]
         SIGN = 6,
 
+        /// <summary>
+        /// 流程名称节点
+        /// </summary>
         [Description("流程名称节点")]
         NAMEDES = 7
     }
