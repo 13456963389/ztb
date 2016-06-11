@@ -39,10 +39,14 @@ namespace Components.WorkFlowEngine.Persistent
                 .GetEntranceNode(wf);
             if (wf == null)
             {
-                retInfo.Msg = string.Format(WfErrorCode.Error_3001, wf.TemplateId);
+                retInfo.Msg = string.Format(WfErrorCode.Error_3001, wf.TemplateId, wf.BusinessId);
                 throw new NullReferenceException(retInfo.Msg);
             }
-            List<WorkFlow> wfList = new List<WorkFlow>();
+            rs.GetNextNodes(wf).ForEach(item =>
+            {
+
+            });
+
         }
     }
 }

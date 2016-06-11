@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Components.Properties;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -61,17 +62,43 @@ namespace Components.WorkFlowEngine.DBDAL
         internal WorkFlow GetEntranceNode(WorkFlow wf)
         {
             return new WorkFlow(SqlHelper.ExecuteDataTable(
-                GetSqlStr.GET_WF_ENTRANCE_ROOT_NODE,
+                GetSqlStr.GET_WF_ENTRANCE_NODE,
                 new SqlParameter("@BusinessId", wf.BusinessId),
                 new SqlParameter("@TemplateId", wf.TemplateId),
                 new SqlParameter("@NodeType", NodeTypeStatus.START),
                 new SqlParameter("@PCode", wf.NodeCode))?.Rows[0]);
         }
+
+        /// <summary>
+        /// 获取下一步节点集合
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        internal List<WorkFlow> GetNextNodes(WorkFlow wf)
+        {
+            List<WorkFlow> wfList = new List<WorkFlow>();
+            DataTable dt = SqlHelper.ExecuteDataTable(
+                GetSqlStr.Get_WF_NEXT_NODES,
+                new SqlParameter("@BusinessId", wf.BusinessId),
+                new SqlParameter("@TemplateId", wf.TemplateId),
+                new SqlParameter("@PCode", wf.NodeCode));
+            if (dt == null)
+                throw new NullReferenceException(string.Format(WfErrorCode.Error_3002, wf.TemplateId, wf.BusinessId, wf.NodeCode));
+            foreach (var item in dt.Rows)
+            {
+                wfList.Add(new WorkFlow(item as DataRow));
+            }
+            return wfList;
+        }
     }
 
     internal static class GetSqlStr
     {
-        internal static readonly string GGET_WF_ENTRANCE_NODE = @"SELECT * FROM dbo.WorkFlow
+
+        internal static readonly string Get_WF_NEXT_NODES = @"SELECT * FROM dbo.WorkFlow
+                WHERE BusinessId = @BusinessId AND TemplateId = @TemplateId AND PCode = @PCode ";
+
+        internal static readonly string GET_WF_ENTRANCE_NODE = @"SELECT * FROM dbo.WorkFlow
                 WHERE BusinessId = @BusinessId AND TemplateId = @TemplateId AND NodeType = @NodeType AND PCode = @PCode ";
 
         internal static readonly string GET_WF_ENTRANCE_ROOT_NODE = @"SELECT * FROM dbo.WorkFlow

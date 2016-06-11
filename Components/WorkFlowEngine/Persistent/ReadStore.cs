@@ -63,7 +63,23 @@ namespace Components.WorkFlowEngine.Persistent
             wf = wfDAL.GetEntranceNode(wf);
             return this;
         }
-        
+
+        /// <summary>
+        /// 获取下一步所有节点
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        internal List<WorkFlow> GetNextNodes(WorkFlow wf)
+        {
+            checkField
+                .CheckBusinessId(wf)
+                .CheckTemplateId(wf)
+                .CheckNodeCode(wf);
+            List<WorkFlow> wfNodes = new List<WorkFlow>();
+            wfNodes = wfDAL.GetNextNodes(wf);
+            return wfNodes;
+        }
+
 
     }
 }

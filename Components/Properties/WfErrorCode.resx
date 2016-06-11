@@ -142,6 +142,9 @@
     <value>复制流程失败，请检查失败原因(TemplateId:{0})</value>
   </data>
   <data name="Error_3001" xml:space="preserve">
-    <value>获取入口节点失败，请检查失败原因(TemplateId:{0})</value>
+    <value>获取入口节点失败，请检查失败原因(TemplateId:{0};BusinessId:{1};)</value>
+  </data>
+  <data name="Error_3002" xml:space="preserve">
+    <value>获取下一步节点失败，请检查失败原因(TemplateId:{0};BusinessId:{1};NodeCode:{2})</value>
   </data>
 </root>

@@ -133,11 +133,20 @@ namespace Components.Properties {
         }
         
         /// <summary>
-        ///   查找类似 获取入口节点失败，请检查失败原因(TemplateId:{0}) 的本地化字符串。
+        ///   查找类似 获取入口节点失败，请检查失败原因(TemplateId:{0};BusinessId:{1};) 的本地化字符串。
         /// </summary>
         public static string Error_3001 {
             get {
                 return ResourceManager.GetString("Error_3001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 获取下一步节点失败，请检查失败原因(TemplateId:{0};BusinessId:{1};NodeCode:{2}) 的本地化字符串。
+        /// </summary>
+        public static string Error_3002 {
+            get {
+                return ResourceManager.GetString("Error_3002", resourceCulture);
             }
         }
     }
