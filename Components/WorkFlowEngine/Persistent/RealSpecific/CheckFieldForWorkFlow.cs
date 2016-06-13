@@ -21,6 +21,17 @@ namespace Components.WorkFlowEngine.Persistent.RealSpecific
             return this;
         }
 
+        internal override CheckField CheckEmployeeId(WorkFlow wf)
+        {
+            if (wf == null)
+                throw new NullReferenceException(string.Format(WfErrorCode.Error_2000, "EmployeeId"));
+            if (wf.BusinessId == null)
+                throw new Exception(string.Format(WfErrorCode.Error_2001, "EmployeeId"));
+            if (wf.BusinessId <= 0)
+                throw new Exception(string.Format(WfErrorCode.Error_2003, "EmployeeId"));
+            return this;
+        }
+
         internal override CheckField CheckNodeCode(WorkFlow wf)
         {
             if (wf == null)

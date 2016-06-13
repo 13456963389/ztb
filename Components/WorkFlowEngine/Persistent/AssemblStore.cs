@@ -1,4 +1,5 @@
 ﻿using Components.Properties;
+using DSM.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Components.WorkFlowEngine.Persistent
         /// </summary>
         internal void Start(WorkFlow wf, RetInfo retInfo)
         {
+            WorkFlow initWf = wf;
             if (!rs.CheckWorkFlowIsCopy(wf))
             {
                 int flag = ps.CopyWorkFlowFromTemplate(wf);
@@ -34,6 +36,8 @@ namespace Components.WorkFlowEngine.Persistent
                     throw new Exception(retInfo.Msg);
                 }
             }
+            //验证是否已开始
+
             // init wf
             rs.GetRootEntranceNode(wf)
                 .GetEntranceNode(wf);
@@ -42,11 +46,18 @@ namespace Components.WorkFlowEngine.Persistent
                 retInfo.Msg = string.Format(WfErrorCode.Error_3001, wf.TemplateId, wf.BusinessId);
                 throw new NullReferenceException(retInfo.Msg);
             }
-            rs.GetNextNodes(wf).ForEach(item =>
+            List<WorkFlow> wfList = rs.GetNextNodes(wf);
+            bool perFlag = ps.WfStartPreData(initWf, wf, wfList);
+            if (!perFlag)
             {
-
-            });
-
+                retInfo.RetInt = -1;
+                retInfo.Success = false;
+            }
+            else
+            {
+                retInfo.RetInt = 1;
+                retInfo.Success = true;
+            }
         }
     }
 }

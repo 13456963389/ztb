@@ -51,7 +51,7 @@ namespace Components.WorkFlowEngine.DBDAL
                 GetSqlStr.GET_WF_ENTRANCE_ROOT_NODE,
                 new SqlParameter("@BusinessId", wf.BusinessId),
                 new SqlParameter("@TemplateId", wf.TemplateId),
-                new SqlParameter("@NodeType", NodeTypeStatus.NAMEDES))?.Rows[0]);
+                new SqlParameter("@NodeType", Convert.ToInt32(NodeTypeStatus.NAMEDES)))?.Rows[0]);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Components.WorkFlowEngine.DBDAL
                 GetSqlStr.GET_WF_ENTRANCE_NODE,
                 new SqlParameter("@BusinessId", wf.BusinessId),
                 new SqlParameter("@TemplateId", wf.TemplateId),
-                new SqlParameter("@NodeType", NodeTypeStatus.START),
+                new SqlParameter("@NodeType", Convert.ToInt32(NodeTypeStatus.START)),
                 new SqlParameter("@PCode", wf.NodeCode))?.Rows[0]);
         }
 

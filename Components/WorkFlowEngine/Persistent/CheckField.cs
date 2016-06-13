@@ -14,5 +14,7 @@ namespace Components.WorkFlowEngine.Persistent
         internal abstract CheckField CheckTemplateId(WorkFlow wf);
 
         internal abstract CheckField CheckNodeCode(WorkFlow wf);
+
+        internal abstract CheckField CheckEmployeeId(WorkFlow wf);
     }
 }

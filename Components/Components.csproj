@@ -165,6 +165,7 @@
     <Compile Include="WorkFlowEngine\Assembler.cs" />
     <Compile Include="WorkFlowEngine\ContextBase.cs" />
     <Compile Include="WorkFlowEngine\DBDAL\WF_WorkFlowDAL.cs" />
+    <Compile Include="WorkFlowEngine\DBDAL\WF_WorkFlowOHistDAL.cs" />
     <Compile Include="WorkFlowEngine\IContext.cs" />
     <Compile Include="WorkFlowEngine\Persistent\AssemblStore.cs" />
     <Compile Include="WorkFlowEngine\Persistent\ReadStore.cs" />

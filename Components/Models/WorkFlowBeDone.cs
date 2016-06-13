@@ -60,7 +60,7 @@ namespace DSM.Models
         /// 操作时间
         /// </summary>
         [DataMember(IsRequired = false)]
-		public int? OperateDate_Order{get;set;}
+		public long? OperateDate_Order{get;set;}
         /// <summary>
         /// 描述
         /// </summary>

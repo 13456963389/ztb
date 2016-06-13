@@ -50,7 +50,7 @@ namespace DSM.Models
         /// 操作时间
         /// </summary>
         [DataMember(IsRequired = false)]
-		public int? OperateTime_order{get;set;}
+		public long? OperateTime_order{get;set;}
         /// <summary>
         /// 业务编号
         /// </summary>
