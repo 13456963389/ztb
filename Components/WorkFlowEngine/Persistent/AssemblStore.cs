@@ -57,6 +57,7 @@ namespace Components.WorkFlowEngine.Persistent
             {
                 retInfo.RetInt = 1;
                 retInfo.Success = true;
+                retInfo.Msg = "操作成功";
             }
         }
     }

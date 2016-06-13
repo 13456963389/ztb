@@ -46,38 +46,7 @@ namespace Components.WorkFlowEngine.Persistent
                 .CheckBusinessId(currWf)
                 .CheckTemplateId(currWf)
                 .CheckEmployeeId(initWf);
-
-            //插入历史纪录
-            int hisWfId = new WorkFlowOHistDAL().INSERT(new DSM.Models.WorkFlowOHist
-            {
-                BusinessBillId = currWf.BusinessId,
-                NodeActionStatus = Convert.ToInt32(NodeActionStatus.OVER),
-                NodeCode = currWf.NodeCode,
-                NodeId = currWf.NodeId,
-                OperateState = Convert.ToInt32(WFOperateState.AGREE),
-                OperateTime = DateTime.Now,
-                OperateTime_order = DateTime.Now.Ticks,
-                TemplateId = currWf.TemplateId,
-                UserId = initWf.EmployeeId,
-                WFActiveStatus = Convert.ToInt32(WFActiveStatus.DOING),
-                WFGUID = Guid.NewGuid().ToString()
-            });
-            //插入待办记录
-            wfList.ForEach(item =>
-            {
-                int beDoneId = new WorkFlowBeDoneDAL().INSERT(new DSM.Models.WorkFlowBeDone
-                {
-                    BusinessBillId = item.BusinessId,
-                    NodeCode = item.NodeCode,
-                    NodeId = item.NodeId,
-                    OperateDate = DateTime.Now,
-                    OperateDate_Order = DateTime.Now.Ticks,
-                    OperateState = Convert.ToInt32(WFOperateState.BEDONE),
-                    TemplateId = item.TemplateId,
-                    UserId = item.EmployeeId
-                });
-            });
-            return true;
+            return wfDAL.WfStartPreData(initWf, currWf, wfList);
         }
     }
 }
