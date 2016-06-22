@@ -46,9 +46,14 @@ namespace Components.CommonHelper
         /// <returns></returns>
         public bool Submit(int businessId, string nodeCode, int userId, out string msg)
         {
-            bool bl = false;
-            msg = "提交成功！";
-            return bl;
+            RetInfo retInfo = GoNext(new WorkFlow
+            {
+                NodeCode = nodeCode,
+                BusinessId = businessId,
+                EmployeeId = userId
+            });
+            msg = retInfo.Msg;
+            return retInfo.Success;
         }
 
         /// <summary>
@@ -61,9 +66,14 @@ namespace Components.CommonHelper
         /// <returns></returns>
         public bool Return(int businessId, string nodeCode, int userId, out string msg)
         {
-            bool bl = false;
-            msg = "提交成功！";
-            return bl;
+            RetInfo retInfo = GoPrev(new WorkFlow
+            {
+                NodeCode = nodeCode,
+                BusinessId = businessId,
+                EmployeeId = userId
+            });
+            msg = retInfo.Msg;
+            return retInfo.Success;
         }
 
         /// <summary>

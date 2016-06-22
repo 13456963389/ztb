@@ -39,7 +39,7 @@ namespace Components.WorkFlowEngine.AnyInstaCycle
         {
             try
             {
-
+                aStore.Next(context.Wf, context.RetInfo);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace Components.WorkFlowEngine.AnyInstaCycle
         {
             try
             {
-
+                aStore.Prev(context.Wf, context.RetInfo);
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace Components.WorkFlowEngine.AnyInstaCycle
                 context.RetInfo.RetInt = -1;
             }
         }
-
+        
         public void Start(IContext context)
         {
             try

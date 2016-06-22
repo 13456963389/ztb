@@ -16,5 +16,11 @@ namespace Components.WorkFlowEngine.Persistent
         internal abstract CheckField CheckNodeCode(WorkFlow wf);
 
         internal abstract CheckField CheckEmployeeId(WorkFlow wf);
+
+        internal abstract CheckField CheckNodeId(WorkFlow wf);
+
+        internal abstract CheckField CheckQjNodeCode(WorkFlow wf);
+
+        internal abstract CheckField CheckPCode(WorkFlow wf);
     }
 }

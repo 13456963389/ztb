@@ -61,7 +61,7 @@ namespace Components.Properties {
         }
         
         /// <summary>
-        ///   查找类似 不存在该节点 {0} 的本地化字符串。
+        ///   查找类似 不存在该节点 ,(BusinessId:{0},NodeCode{1}) 的本地化字符串。
         /// </summary>
         public static string Error_1000 {
             get {
@@ -70,7 +70,7 @@ namespace Components.Properties {
         }
         
         /// <summary>
-        ///   查找类似 该节点已关闭 {0} 的本地化字符串。
+        ///   查找类似 该节点已关闭 ,(BusinessId:{0},NodeCode{1}) 的本地化字符串。
         /// </summary>
         public static string Error_1001 {
             get {
@@ -79,11 +79,74 @@ namespace Components.Properties {
         }
         
         /// <summary>
-        ///   查找类似 该节点已冻结 {0} 的本地化字符串。
+        ///   查找类似 该节点已冻结,(BusinessId:{0},NodeCode{1}) 的本地化字符串。
         /// </summary>
         public static string Error_1002 {
             get {
                 return ResourceManager.GetString("Error_1002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 该节点不在活动状态,(BusinessId:{0},NodeCode{1}) 的本地化字符串。
+        /// </summary>
+        public static string Error_1003 {
+            get {
+                return ResourceManager.GetString("Error_1003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 该节点不存在或不在活动状态,(BusinessId:{0},NodeCode{1}) 的本地化字符串。
+        /// </summary>
+        public static string Error_1004 {
+            get {
+                return ResourceManager.GetString("Error_1004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 该节点已完成,(BusinessId:{0},NodeCode{1}) 的本地化字符串。
+        /// </summary>
+        public static string Error_1005 {
+            get {
+                return ResourceManager.GetString("Error_1005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 该节点已停止,(BusinessId:{0},NodeCode{1}) 的本地化字符串。
+        /// </summary>
+        public static string Error_1006 {
+            get {
+                return ResourceManager.GetString("Error_1006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 该节点不是审核节点，(BusinessId:{0},NodeCode{1}) 的本地化字符串。
+        /// </summary>
+        public static string Error_1007 {
+            get {
+                return ResourceManager.GetString("Error_1007", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当前操作人在该节点无操作权限，(TemplateId:{0};BusinessId:{1};NodeCode:{2};EmployeeId:{3}) 的本地化字符串。
+        /// </summary>
+        public static string Error_1008 {
+            get {
+                return ResourceManager.GetString("Error_1008", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 退回节点为空,(BusinessId:{0},NodeCode{1}) 的本地化字符串。
+        /// </summary>
+        public static string Error_1009 {
+            get {
+                return ResourceManager.GetString("Error_1009", resourceCulture);
             }
         }
         
@@ -147,6 +210,51 @@ namespace Components.Properties {
         public static string Error_3002 {
             get {
                 return ResourceManager.GetString("Error_3002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 流程开始初始化失败，请检查失败原因(TemplateId:{0};BusinessId:{1};) 的本地化字符串。
+        /// </summary>
+        public static string Error_3003 {
+            get {
+                return ResourceManager.GetString("Error_3003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 流程提交失败，请检查失败原因(TemplateId:{0};BusinessId:{1};NodeCode:{2}) 的本地化字符串。
+        /// </summary>
+        public static string Error_3004 {
+            get {
+                return ResourceManager.GetString("Error_3004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 流程退回失败，请检查失败原因(TemplateId:{0};BusinessId:{1};NodeCode:{2}) 的本地化字符串。
+        /// </summary>
+        public static string Error_3005 {
+            get {
+                return ResourceManager.GetString("Error_3005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 选签节点的下一步节点未汇总，(TemplateId:{0};BusinessId:{1};NodeCode:{2}) 的本地化字符串。
+        /// </summary>
+        public static string Error_4001 {
+            get {
+                return ResourceManager.GetString("Error_4001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 集合删除对象失败，(TemplateId:{0};BusinessId:{1};NodeCode:{2}) 的本地化字符串。
+        /// </summary>
+        public static string Error_5001 {
+            get {
+                return ResourceManager.GetString("Error_5001", resourceCulture);
             }
         }
     }

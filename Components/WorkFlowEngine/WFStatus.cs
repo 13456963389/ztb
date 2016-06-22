@@ -32,7 +32,7 @@ namespace Components.WorkFlowEngine
         /// </summary>
         [Description("待办")]
         BEDONE = 4
-        
+
     }
 
     /// <summary>
@@ -150,7 +150,7 @@ namespace Components.WorkFlowEngine
         /// 交互节点
         /// </summary>
         [Description("交互节点")]
-        Action = 3,
+        ACTION = 3,
 
         /// <summary>
         /// 虚节点

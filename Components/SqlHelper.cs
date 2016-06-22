@@ -42,6 +42,12 @@ namespace ZtbSoft
                 }
             }
         }
+
+        internal static int? ExecuteScalar(object gET_WF_HISTORY_COUNTS)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>   
         /// 预处理用户提供的命令,数据库连接/事务/命令类型/参数   
         /// </summary>   
@@ -91,6 +97,11 @@ namespace ZtbSoft
                 AttachParameters(command, commandParameters);
             }
             return;
+        }
+
+        internal static DataTable ExecuteDataTable(object gET_WF_NODE_CHILD_NODES, SqlParameter sqlParameter1, SqlParameter sqlParameter2, SqlParameter sqlParameter3, SqlParameter sqlParameter4)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

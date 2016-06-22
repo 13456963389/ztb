@@ -9,23 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZtbSoft;
+using ZtbSoft.Components;
 using ZtbSoft.Models;
 
 namespace Components.WorkFlowEngine.DBDAL
 {
-    public class WF_WorkFlowDAL
+    public class WF_WorkFlowDAL : WFDAL
     {
-        protected object ToDBValue(object value)
-        {
-            if (value == null)
-            {
-                return DBNull.Value;
-            }
-            else
-            {
-                return value;
-            }
-        }
+
 
         /// <summary>
         /// 检查是否模板被复制
@@ -54,6 +45,65 @@ namespace Components.WorkFlowEngine.DBDAL
         }
 
         /// <summary>
+        /// 模糊查询获取下一步节点集合
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        internal List<WorkFlow> GetNextVagueNodes(WorkFlow wf)
+        {
+            List<WorkFlow> wfList = new List<WorkFlow>();
+            DataTable dt = SqlHelper.ExecuteDataTable(
+                GetSqlStr.Get_WF_NEXT_VAGUE_NODES,
+                new SqlParameter("@BusinessId", wf.BusinessId),
+                new SqlParameter("@TemplateId", wf.TemplateId),
+                new SqlParameter("@PCode", wf.PCode),
+                new SqlParameter("@QjNodeCode", "%" + wf.NodeCode + "%"));
+            if (dt == null)
+                throw new NullReferenceException(string.Format(WfErrorCode.Error_3002, wf.TemplateId, wf.BusinessId, wf.NodeCode));
+            foreach (var item in dt.Rows)
+            {
+                wfList.Add(new WorkFlow(item as DataRow));
+            }
+            return wfList;
+        }
+
+        /// <summary>
+        /// 查看该业务流程历史数据条数
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        internal int GetWFHistoryCounts(WorkFlow wf)
+        {
+            return Convert.ToInt32(
+                SqlHelper.ExecuteScalar(GetSqlStr.GET_WF_HISTORY_COUNTS,
+                new SqlParameter("@BusinessId", wf.BusinessId),
+                new SqlParameter("@TemplateId", wf.TemplateId)) ?? 0
+            );
+        }
+
+        /// <summary>
+        /// 获取当前节点所有平行节点集合
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        internal List<WorkFlow> GetCurrentSameLevelNodes(WorkFlow wf)
+        {
+            List<WorkFlow> retLists = new List<WorkFlow>();
+            DataTable wfDt = SqlHelper.ExecuteDataTable(
+                GetSqlStr.GET_WF_NODE_SAME_LEVEL_NODES,
+                new SqlParameter("@BusinessId", wf.BusinessId),
+                new SqlParameter("@TemplateId", wf.TemplateId),
+                new SqlParameter("@PCode", wf.NodeCode),
+                new SqlParameter("@QjNodeCode", wf.QjNodeCode)
+            );
+            foreach (var item in wfDt.Rows)
+            {
+                retLists.Add(new WorkFlow(item as DataRow));
+            }
+            return retLists;
+        }
+
+        /// <summary>
         /// 获取 流程名称节点
         /// </summary>
         /// <param name="wf"></param>
@@ -65,6 +115,67 @@ namespace Components.WorkFlowEngine.DBDAL
                 new SqlParameter("@BusinessId", wf.BusinessId),
                 new SqlParameter("@TemplateId", wf.TemplateId),
                 new SqlParameter("@NodeType", Convert.ToInt32(NodeTypeStatus.NAMEDES)))?.Rows[0]);
+        }
+
+        /// <summary>
+        /// 获取当前节点子节点
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        internal List<WorkFlow> GetChildNodes(WorkFlow wf)
+        {
+            List<WorkFlow> retLists = new List<WorkFlow>();
+            DataTable wfDt = SqlHelper.ExecuteDataTable(
+                GetSqlStr.GET_WF_NODE_CHILD_NODES,
+                new SqlParameter("@BusinessId", wf.BusinessId),
+                new SqlParameter("@TemplateId", wf.TemplateId),
+                new SqlParameter("@PCode", wf.NodeCode)
+            );
+            foreach (var item in wfDt.Rows)
+            {
+                retLists.Add(new WorkFlow(item as DataRow));
+            }
+            return retLists;
+        }
+
+        /// <summary>
+        /// 检查节点是否是整个流程结束节点
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        internal bool CheckNodeIsRootEndNode(WorkFlow wf)
+        {
+            DataTable wfDt = SqlHelper.ExecuteDataTable(
+                GetSqlStr.CHECK_WF_NODE_PARENT_TYPE,
+                new SqlParameter("@BusinessId", wf.BusinessId),
+                new SqlParameter("@TemplateId", wf.TemplateId),
+                new SqlParameter("@PCode", wf.NodeCode)
+            );
+            if (wfDt != null && wfDt.Rows.Count > 0)
+            {
+                return Convert.ToInt32(wfDt.Rows[0]["NodeType"]) == Convert.ToInt32(NodeTypeStatus.NAMEDES);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 获取子流程父节点
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        internal WorkFlow GetChildNodeParentNode(WorkFlow wf)
+        {
+            DataTable wfDt = SqlHelper.ExecuteDataTable(
+                GetSqlStr.CHECK_WF_NODE_PARENT_TYPE,
+                new SqlParameter("@BusinessId", wf.BusinessId),
+                new SqlParameter("@TemplateId", wf.TemplateId),
+                new SqlParameter("@PCode", wf.NodeCode)
+            );
+            if (wfDt != null && wfDt.Rows.Count > 0)
+            {
+                return new WorkFlow(wfDt.Rows[0]);
+            }
+            return null;
         }
 
         /// <summary>
@@ -83,6 +194,23 @@ namespace Components.WorkFlowEngine.DBDAL
         }
 
         /// <summary>
+        /// 获取当前待办节点
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        internal WorkFlow GetCurrentNode(WorkFlow wf)
+        {
+            return new WorkFlow(
+                SqlHelper.ExecuteDataTable(
+                    GetSqlStr.GET_WF_CURRENT_NODE,
+                    new SqlParameter("@BusinessId", wf.BusinessId),
+                    new SqlParameter("@NodeCode", wf.NodeCode),
+                    new SqlParameter("@OperateState", Convert.ToInt32(WFOperateState.BEDONE))
+                )?.Rows[0]
+            );
+        }
+
+        /// <summary>
         /// 获取下一步节点集合
         /// </summary>
         /// <param name="wf"></param>
@@ -94,7 +222,7 @@ namespace Components.WorkFlowEngine.DBDAL
                 GetSqlStr.Get_WF_NEXT_NODES,
                 new SqlParameter("@BusinessId", wf.BusinessId),
                 new SqlParameter("@TemplateId", wf.TemplateId),
-                new SqlParameter("@PCode", wf.NodeCode));
+                new SqlParameter("@QjNodeCode", wf.NodeCode));
             if (dt == null)
                 throw new NullReferenceException(string.Format(WfErrorCode.Error_3002, wf.TemplateId, wf.BusinessId, wf.NodeCode));
             foreach (var item in dt.Rows)
@@ -113,7 +241,7 @@ namespace Components.WorkFlowEngine.DBDAL
         /// <param name="currWf"></param>
         /// <param name="wfList"></param>
         /// <returns></returns>
-        internal bool WfStartPreData(WorkFlow initWf, WorkFlow currWf, List<WorkFlow> wfList)
+        internal bool WfStartPreData(WorkFlow initWf, WorkFlow currWf, List<WorkFlow> wfList, List<WorkFlow> parentNodesList)
         {
             using (SqlConnection conn = SqlHelper.GetConnection())
             {
@@ -202,69 +330,70 @@ namespace Components.WorkFlowEngine.DBDAL
                         #endregion
 
                         #region 修改流程状态
+                        #region params
+                        paramArray = new SqlParameter[]
+                            {
+                                new SqlParameter("@BusinessId", currWf.BusinessId),
+                                new SqlParameter("@TemplateId", currWf.TemplateId),
+                                new SqlParameter("@NodeId", currWf.NodeId),
+                                new SqlParameter("@NodeStatu", Convert.ToInt32(NodeActionStatus.OVER))
+                            };
+                        #endregion
+                        SqlCommand updateComm = new SqlCommand(GetSqlStr.UPDATE_WF_APPOINT_NODE_STATUS, conn, trans);
+                        updateComm.Parameters.AddRange(paramArray);
+                        idx = updateComm.ExecuteNonQuery();
+                        if (idx < 0)
+                            throw new Exception("修改流程状态出错");
 
+                        parentNodesList?.ForEach(item =>
+                        {
+                            #region params
+                            paramArray = new SqlParameter[]
+                                {
+                                new SqlParameter("@BusinessId", item.BusinessId),
+                                new SqlParameter("@TemplateId", item.TemplateId),
+                                new SqlParameter("@NodeId", item.NodeId),
+                                new SqlParameter("@NodeStatu", Convert.ToInt32(NodeActionStatus.DOING))
+                                };
+                            #endregion
+                            updateComm = new SqlCommand(GetSqlStr.UPDATE_WF_APPOINT_NODE_STATUS, conn, trans);
+                            updateComm.Parameters.AddRange(paramArray);
+                            idx = updateComm.ExecuteNonQuery();
+                            if (idx < 0)
+                                throw new Exception("修改流程状态出错");
+                        });
                         #endregion
 
                         trans.Commit();
                         return true;
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         trans.Rollback();
+                        LogHelper<WF_WorkFlowDAL>.WriteLog("流程开始节点操作,BusinessId:" + currWf.BusinessId, ex);
                         return false;
                     }
                 }
             }
         }
+
+        /// <summary>
+        /// 获取上一级节点
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        internal WorkFlow GetPrevNode(WorkFlow wf)
+        {
+            return new WorkFlow(
+                SqlHelper.ExecuteDataTable(
+                    GetSqlStr.GET_WF_PREVOUS_NODE,
+                    new SqlParameter("@BusinessId", wf.BusinessId),
+                    new SqlParameter("@TemplateId", wf.TemplateId),
+                    new SqlParameter("@NodeCode", wf.ThNodeCode)
+                )?.Rows[0]
+            );
+        }
     }
 
-    internal static class GetSqlStr
-    {
 
-        internal static readonly string Get_WF_NEXT_NODES = @"SELECT * FROM dbo.WorkFlow
-                WHERE BusinessId = @BusinessId AND TemplateId = @TemplateId AND PCode = @PCode ";
-
-        internal static readonly string GET_WF_ENTRANCE_NODE = @"SELECT * FROM dbo.WorkFlow
-                WHERE BusinessId = @BusinessId AND TemplateId = @TemplateId AND NodeType = @NodeType AND PCode = @PCode ";
-
-        internal static readonly string GET_WF_ENTRANCE_ROOT_NODE = @"SELECT * FROM dbo.WorkFlow
-                WHERE BusinessId = @BusinessId AND TemplateId = @TemplateId AND NodeType = @NodeType";
-
-        internal static readonly string CHECK_WF_ISCOPY_TEMPLATE = @"SELECT COUNT(1) FROM dbo.WorkFlow
-                WHERE BusinessId = @BusinessId AND TemplateId =@TemplateId";
-
-        internal static readonly string COPY_WF_FROM_TEMPLATE = @"INSERT INTO WorkFlow
-	                                                        (
-                                                                NodeId ,
-                                                                NodeCode ,
-                                                                NodeName ,
-                                                                NodeUrl ,
-                                                                PCode ,
-                                                                QjNodeCode ,
-                                                                ThNodeCode ,
-                                                                NodeStatu ,
-                                                                NodeType ,
-                                                                TemplateId ,
-                                                                ProjectId,
-                                                                EmployeeId ,
-                                                                NodeShowUrl ,
-                                                                BusinessId
-	                                                        )			
-                                                        SELECT NodeId,
-                                                                NodeCode,
-                                                                NodeName,
-                                                                NodeUrl,
-                                                                PCode,
-                                                                QjNodeCode,
-                                                                ThNodeCode,
-                                                                NodeStatu,
-                                                                NodeType,
-                                                                TemplateId,
-                                                                '-1',
-                                                                EmployeeId,
-                                                                NodeShowUrl,
-                                                                @BusinessId
-                                                        FROM WorkFlowTemp
-                                                        WHERE TemplateId=@TemplateId ";
-    }
 }
