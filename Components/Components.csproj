@@ -184,6 +184,7 @@
     <Compile Include="WorkFlowEngine\Persistent\PersistentStore.cs" />
     <Compile Include="WorkFlowEngine\WfEngine.cs" />
     <Compile Include="WorkFlowEngine\WFStatus.cs" />
+    <Compile Include="WorkFlowEngine\WorkFlowAddational\RenderAddation.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\WfErrorCode.resx">

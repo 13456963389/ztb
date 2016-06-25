@@ -11,6 +11,7 @@ using ZtbSoft.Models;
 using Components.WorkFlowEngine;
 using Components.Properties;
 using ZtbSoft.Components;
+using Components.WorkFlowEngine.WorkFlowAddational;
 
 namespace Components.CommonHelper
 {
@@ -112,6 +113,7 @@ namespace Components.CommonHelper
         public List<WorkFlow> GetMainWorkFlowList(int businessId)
         {
             var list = new List<WorkFlow>();
+            list = new RenderAddation().GetMainWorkFlowList(businessId);
             return list;
         }
 
@@ -124,6 +126,7 @@ namespace Components.CommonHelper
         public List<WorkFlow> GetWorkFlowInfo(int businessId, int parentNodeCode)
         {
             var list = new List<WorkFlow>();
+            list = new RenderAddation().GetWorkFlowInfo(businessId, parentNodeCode);
             return list;
         }
 
@@ -135,6 +138,7 @@ namespace Components.CommonHelper
         public WorkFlow GetIngMainNode(int businessId)
         {
             var model = new WorkFlow();
+            model = new RenderAddation().GetIngMainNode(businessId);
             return model;
         }
 
@@ -146,6 +150,7 @@ namespace Components.CommonHelper
         public List<WorkFlow> GetAllIngMainNode(List<int> businessIdList)
         {
             var list = new List<WorkFlow>();
+            list = new RenderAddation().GetAllIngMainNode(businessIdList);
             return list;
         }
     }
